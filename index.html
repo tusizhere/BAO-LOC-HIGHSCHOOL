@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#A99DF5">
+<title>BảoLộc OS · THPT Bảo Lộc</title>
+<meta name="description" content="Cổng truy cập nhanh Trường THPT Bảo Lộc – theo dõi học sinh, tổ chuyên môn, thời khóa biểu, vnEdu.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@500;600;700;800&family=VT323&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   BẢO LỘC OS — retro computer edition
+   Sửa link ở phần CONFIG trong <script> cuối file.
+   ========================================================= */
+:root{
+  --ink:#2A2378;      /* viền + chữ chính */
+  --desk:#A99DF5;     /* nền desktop */
+  --desk-d:#968AEE;
+  --paper:#FBF7FF;    /* nền cửa sổ */
+  --lav:#D9D2FF;
+  --violet:#5B4BE0;
+  --pink:#F7A8D8;
+  --yellow:#FFD84D;
+  --green:#6ED3A0;
+  --green-d:#2F9E74;
+  --line:3px solid var(--ink);
+  --sh:4px 4px 0 var(--ink);
+  --sans:'Be Vietnam Pro',system-ui,sans-serif;
+  --disp:'Bricolage Grotesque','Be Vietnam Pro',system-ui,sans-serif;
+  --px:'VT323','Courier New',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);font-size:18px;line-height:1.45;color:var(--ink);min-height:100vh;
+  background-color:var(--desk);
+  background-image:radial-gradient(var(--desk-d) 1.6px,transparent 1.8px);background-size:18px 18px;
+  padding-bottom:84px;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+.px{font-family:var(--px);letter-spacing:.3px}
+.app{max-width:540px;margin:0 auto;padding:10px 12px 20px;display:flex;flex-direction:column;gap:18px}
+
+/* ---------- thanh trạng thái trên cùng ---------- */
+.topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:var(--line);padding-top:env(safe-area-inset-top)}
+.topbar .in{max-width:540px;margin:0 auto;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-family:var(--px);font-size:1.35rem;line-height:1}
+.topbar .os b{background:var(--ink);color:var(--paper);padding:0 6px;border-radius:4px;margin-right:6px;font-weight:400}
+.bat{display:inline-flex;gap:2px;align-items:center;margin-left:8px;vertical-align:middle}
+.bat i{width:5px;height:11px;background:var(--green-d)}
+.bat::after{content:"";width:3px;height:6px;background:var(--ink);margin-left:1px}
+
+/* ---------- WINDOW ---------- */
+.win{background:var(--paper);border:var(--line);border-radius:10px;box-shadow:var(--sh);overflow:hidden}
+.tb{display:flex;align-items:center;gap:8px;padding:5px 6px 5px 10px;background:var(--lav);border-bottom:var(--line)}
+.tb.p{background:var(--pink)} .tb.y{background:var(--yellow)} .tb.g{background:var(--green)}
+.tb .name{flex:1;font-family:var(--px);font-size:1.4rem;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb .ctl{display:flex;gap:5px}
+.tb .ctl i{width:24px;height:24px;border:2.5px solid var(--ink);background:var(--paper);border-radius:5px;display:grid;place-items:center;font:400 1.2rem/1 var(--px)}
+.pad{padding:14px}
+
+/* ---------- HERO ---------- */
+.scene{display:block;width:100%;height:auto;background:#8C7CF0}
+.hud{display:grid;grid-template-columns:repeat(3,1fr);border-top:var(--line);background:var(--ink);gap:3px}
+.hud div{background:var(--paper);padding:6px 4px;text-align:center;line-height:1}
+.hud small{display:block;font-family:var(--px);font-size:1.05rem;opacity:.7}
+.hud b{font-family:var(--px);font-size:1.9rem;font-weight:400}
+.boot{padding:12px 14px 14px;border-top:var(--line)}
+.boot .row1{display:flex;justify-content:space-between;font-family:var(--px);font-size:1.3rem;line-height:1;margin-bottom:6px}
+.prog{height:22px;border:var(--line);border-radius:5px;padding:2px;background:#fff}
+.prog i{display:block;height:100%;width:0;border-radius:2px;
+  background:repeating-linear-gradient(90deg,var(--violet) 0 12px,transparent 12px 15px);animation:load 2.6s steps(26) forwards}
+@keyframes load{to{width:100%}}
+
+/* tiêu đề lớn kiểu chữ nổi 3D */
+.titlebox{text-align:center;padding:6px 0 0}
+.title{
+  font-family:var(--disp);font-weight:800;font-size:clamp(3rem,15vw,4.6rem);line-height:.9;letter-spacing:-1px;
+  color:var(--paper);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;
+  text-shadow:1px 1px 0 var(--ink),2px 2px 0 var(--ink),3px 3px 0 var(--ink),4px 4px 0 var(--ink),5px 5px 0 var(--ink),6px 6px 0 var(--ink);
+}
+.title .l2{color:var(--yellow)}
+.tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.tag{border:var(--line);background:var(--paper);border-radius:8px;padding:6px 12px;font-weight:800;font-size:1.05rem;box-shadow:3px 3px 0 var(--ink)}
+
+/* ---------- DESKTOP ICONS ---------- */
+.sec-h{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:800;font-size:1.55rem;line-height:1.1}
+.sec-h .n{font-family:var(--px);font-weight:400;font-size:1.3rem;background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:5px}
+.desktop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 8px;margin-top:12px}
+.ico{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;-webkit-tap-highlight-color:transparent}
+.ico .art{width:76px;height:76px;display:grid;place-items:center;border-radius:14px;transition:.12s}
+.ico .art svg{width:66px;height:66px;filter:drop-shadow(3px 3px 0 var(--ink))}
+.ico span{font-weight:800;font-size:1rem;line-height:1.2;background:var(--paper);border:2.5px solid var(--ink);border-radius:6px;padding:3px 7px}
+.ico:hover .art,.ico:active .art{background:rgba(255,255,255,.35);outline:2.5px dashed var(--ink)}
+.ico:active .art svg{transform:translate(2px,2px);filter:drop-shadow(1px 1px 0 var(--ink))}
+.ico.soon span{opacity:.65}
+
+/* ---------- DIALOG nhỏ ---------- */
+.dlg .pad{display:flex;gap:12px;align-items:flex-start}
+.dlg .q{width:40px;height:40px;flex-shrink:0;border:var(--line);border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-family:var(--px);font-size:1.8rem;line-height:1}
+.dlg p{font-weight:700;font-size:1.08rem}
+.btns{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.b{
+  flex:1;min-width:120px;text-align:center;padding:11px 12px;border:var(--line);border-radius:8px;background:var(--paper);
+  box-shadow:3px 3px 0 var(--ink);font-weight:800;font-size:1.05rem;transition:.1s
+}
+.b.main{background:var(--violet);color:#fff}
+.b:active,.b:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+
+/* ---------- LỚP HỌC (phím bàn phím) ---------- */
+.seg{display:grid;grid-template-columns:1fr 1fr;border:var(--line);border-radius:8px;overflow:hidden;margin-bottom:12px}
+.seg button{border:0;padding:12px;font-family:var(--disp);font-weight:800;font-size:1.15rem;background:var(--paper)}
+.seg button+button{border-left:var(--line)}
+.seg button.on{background:var(--ink);color:var(--yellow)}
+.addr{display:flex;align-items:center;gap:8px;border:var(--line);border-radius:8px;background:#fff;padding:0 12px;margin-bottom:14px}
+.addr span{font-family:var(--px);font-size:1.5rem}
+.addr input{flex:1;border:0;outline:0;background:none;padding:13px 0;font:700 1.08rem var(--sans);color:var(--ink);min-width:0}
+.addr input::placeholder{color:#8c84c7}
+.addr:focus-within{box-shadow:0 0 0 4px var(--yellow)}
+.khoi{margin-bottom:16px}
+.khoi h4{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:800;font-size:1.25rem;margin-bottom:9px}
+.khoi h4 em{font-style:normal;font-family:var(--px);font-weight:400;font-size:1.2rem;background:var(--c);border:2px solid var(--ink);border-radius:4px;padding:0 6px;line-height:1.2}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.key{
+  position:relative;text-align:center;padding:10px 0 12px;font-family:var(--disp);font-weight:800;font-size:1.15rem;
+  background:var(--c);border:2.5px solid var(--ink);border-radius:9px;
+  box-shadow:inset 0 -6px 0 rgba(42,35,120,.22),0 3px 0 var(--ink);transition:.08s;
+}
+.key:active,.key:hover{transform:translateY(3px);box-shadow:inset 0 -3px 0 rgba(42,35,120,.22),0 0 0 var(--ink)}
+.key.nolink{opacity:.55;border-style:dashed;box-shadow:none}
+.k10{--c:var(--pink)} .k11{--c:var(--lav)} .k12{--c:var(--green)}
+.empty{text-align:center;font-family:var(--px);font-size:1.4rem;padding:10px}
+
+/* ---------- EXPLORER tổ chuyên môn ---------- */
+.path{display:flex;align-items:center;gap:6px;padding:8px 12px;border-bottom:var(--line);background:#fff;font-family:var(--px);font-size:1.25rem;line-height:1}
+.files{display:flex;flex-direction:column}
+.file{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:2px dashed #cfc8f5;min-height:64px}
+.file:last-child{border-bottom:0}
+.file svg{width:40px;height:40px;flex-shrink:0}
+.file b{flex:1;font-weight:800;font-size:1.12rem;line-height:1.25}
+.file .go{font-family:var(--px);font-size:1.6rem}
+.file:hover,.file:active{background:var(--yellow)}
+.status{padding:6px 12px;border-top:var(--line);background:var(--lav);font-family:var(--px);font-size:1.2rem;display:flex;justify-content:space-between}
+
+/* ---------- NOTEPAD liên hệ ---------- */
+.note{background:#fff;background-image:repeating-linear-gradient(transparent 0 33px,#e4defc 33px 35px);padding:4px 14px 10px}
+.note p{font-weight:700;font-size:1.02rem;line-height:35px}
+.note .h{font-family:var(--disp);font-weight:800;font-size:1.2rem}
+.note a{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--violet)}
+
+.foot{text-align:center;font-family:var(--px);font-size:1.3rem;line-height:1.2}
+
+/* ---------- TASKBAR ---------- */
+.taskbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--paper);border-top:var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.taskbar .in{max-width:540px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:8px 10px}
+.start{display:flex;align-items:center;gap:6px;padding:8px 12px;border:var(--line);border-radius:8px;background:var(--yellow);box-shadow:3px 3px 0 var(--ink);font-family:var(--disp);font-weight:800;font-size:1.05rem}
+.start.on{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.tasks{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tasks::-webkit-scrollbar{display:none}
+.tasks a{flex-shrink:0;padding:8px 10px;border:2.5px solid var(--ink);border-radius:8px;background:#fff;font-weight:800;font-size:.95rem;line-height:1.2}
+.tasks a:active{background:var(--lav)}
+.tclock{font-family:var(--px);font-size:1.35rem;padding:0 2px;white-space:nowrap}
+.startmenu{
+  position:fixed;left:max(10px,calc(50% - 260px));bottom:76px;z-index:61;width:min(300px,calc(100% - 20px));
+  background:var(--paper);border:var(--line);border-radius:10px;box-shadow:var(--sh);display:none;overflow:hidden
+}
+.startmenu.open{display:block;animation:pop .16s steps(3)}
+@keyframes pop{from{transform:translateY(16px);opacity:0}}
+.startmenu .side{background:var(--ink);color:var(--yellow);font-family:var(--px);font-size:1.4rem;padding:8px 12px}
+.startmenu a{display:flex;align-items:center;gap:10px;padding:12px 14px;font-weight:800;font-size:1.05rem;border-top:2px dashed #cfc8f5}
+.startmenu a:hover,.startmenu a:active{background:var(--yellow)}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:70;
+  background:var(--paper);border:var(--line);border-radius:8px;box-shadow:var(--sh);padding:10px 16px;font-family:var(--px);font-size:1.35rem;transition:.2s steps(3);white-space:nowrap}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* ---------- ANIMATION CẢNH ---------- */
+.cl{animation:cloud linear infinite}
+.cl1{animation-duration:46s;animation-delay:-10s}.cl2{animation-duration:62s;animation-delay:-40s}.cl3{animation-duration:54s;animation-delay:-25s}
+@keyframes cloud{from{transform:translateX(-120px)}to{transform:translateX(420px)}}
+.sun{animation:glow 3s ease-in-out infinite alternate;transform-origin:262px 104px}
+@keyframes glow{to{transform:scale(1.04)}}
+.tw{animation:tw 1.4s steps(2) infinite}.tw.d{animation-delay:.7s}
+@keyframes tw{50%{opacity:0}}
+.water{stroke-dasharray:6 7;animation:flow .6s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-13}}
+.splash{animation:tw .8s steps(2) infinite}
+.mist{animation:mist 10s ease-in-out infinite alternate}.mist.b{animation-duration:14s;animation-direction:alternate-reverse}
+@keyframes mist{from{transform:translateX(-22px)}to{transform:translateX(22px)}}
+.flag{transform-origin:0 50%;transform-box:fill-box;animation:wave .9s ease-in-out infinite alternate}
+@keyframes wave{from{transform:skewY(-7deg) scaleX(.92)}to{transform:skewY(5deg)}}
+.bird{animation:fly 18s linear infinite}.bird.b{animation-duration:24s;animation-delay:-9s}
+@keyframes fly{from{transform:translate(-40px,0)}50%{transform:translate(170px,-8px)}to{transform:translate(420px,4px)}}
+.wing{transform-origin:center;transform-box:fill-box;animation:flap .35s steps(2) infinite}
+@keyframes flap{50%{transform:scaleY(-.5)}}
+.pine{transform-origin:bottom center;transform-box:fill-box;animation:sway 3.4s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+.lite{animation:lite 3s steps(1) infinite}
+@keyframes lite{0%,55%{fill:#FFD84D}56%,100%{fill:#FBF7FF}}
+.bus{offset-path:path("M-30 226 C 40 214, 70 204, 120 206 S 200 214, 236 200 S 300 186, 390 192");animation:drive 11s linear infinite;offset-rotate:auto}
+@keyframes drive{from{offset-distance:0%}to{offset-distance:100%}}
+.wheel{transform-origin:center;transform-box:fill-box;animation:spin .5s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.prog i{width:100%}}
+@media(max-width:360px){.keys{grid-template-columns:repeat(3,1fr)}.desktop .art{width:64px;height:64px}.desktop .art svg{width:56px;height:56px}}
+</style>
+</head>
+<body>
+
+<!-- thanh trạng thái -->
+<div class="topbar"><div class="in">
+  <span class="os"><b>☰</b>BảoLộc OS</span>
+  <span><span id="clk1">--:--</span><span class="bat"><i></i><i></i><i></i></span></span>
+</div></div>
+
+<div class="app">
+
+  <!-- =================== HERO =================== -->
+  <div class="win" id="top">
+    <div class="tb p"><span class="name">C:\BAO_LOC\khoi_dong.exe</span><span class="ctl"><i>_</i><i>□</i><i>×</i></span></div>
+
+    <svg class="scene" viewBox="0 0 360 250" role="img" aria-label="Cảnh đồi chè Bảo Lộc">
+      <defs>
+        <clipPath id="cp"><rect width="360" height="250"/></clipPath>
+        <pattern id="dith" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".9" fill="#2A2378" opacity=".28"/></pattern>
+        <pattern id="dithL" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".9" fill="#fff" opacity=".35"/></pattern>
+        <pattern id="tea" width="10" height="7" patternUnits="userSpaceOnUse"><path d="M0 5 q2.5-4 5 0 q2.5-4 5 0" fill="none" stroke="#2F9E74" stroke-width="1.6"/></pattern>
+      </defs>
+      <g clip-path="url(#cp)" stroke="#2A2378" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+
+        <!-- trời sọc retro -->
+        <g stroke="none">
+          <rect width="360" height="250" fill="#8C7CF0"/>
+          <rect y="44" width="360" height="40" fill="#9A8BF4"/>
+          <rect y="84" width="360" height="40" fill="#AA9DF7"/>
+          <rect y="124" width="360" height="126" fill="#BCB1FA"/>
+        </g>
+        <!-- sao -->
+        <g fill="#FBF7FF" stroke="none">
+          <path class="tw" d="M28 22h4v4h-4zM24 26h4v4h-4zM32 26h4v4h-4zM28 30h4v4h-4z"/>
+          <path class="tw d" d="M120 14h3v3h-3zM117 17h3v3h-3zM123 17h3v3h-3zM120 20h3v3h-3z"/>
+          <path class="tw" d="M190 34h3v3h-3zM187 37h3v3h-3zM193 37h3v3h-3zM190 40h3v3h-3z"/>
+          <path class="tw d" d="M336 24h4v4h-4zM332 28h4v4h-4zM340 28h4v4h-4zM336 32h4v4h-4z"/>
+          <rect x="74" y="48" width="2.5" height="2.5"/><rect x="236" y="18" width="2.5" height="2.5"/><rect x="300" y="56" width="2.5" height="2.5"/>
+        </g>
+
+        <!-- mặt trời sọc -->
+        <g class="sun">
+          <circle cx="262" cy="104" r="46" fill="#FFD84D"/>
+          <g stroke="none">
+            <rect x="214" y="112" width="96" height="4" fill="#AA9DF7"/>
+            <rect x="214" y="121" width="96" height="5" fill="#BCB1FA"/>
+            <rect x="214" y="131" width="96" height="6" fill="#BCB1FA"/>
+            <rect x="214" y="142" width="96" height="8" fill="#BCB1FA"/>
+          </g>
+        </g>
+
+        <!-- mây pixel -->
+        <g class="cl cl1" fill="#FBF7FF"><path d="M20 52h12v-6h10v-6h18v6h8v6h10v8h-58z"/></g>
+        <g class="cl cl2" fill="#FBF7FF"><path d="M10 92h14v-8h12v-6h22v6h10v8h12v8h-70z"/></g>
+        <g class="cl cl3" fill="#F7A8D8"><path d="M0 28h8v-5h8v-5h14v5h6v5h8v6h-44z"/></g>
+
+        <!-- chim -->
+        <g class="bird" fill="none" stroke-width="2"><path class="wing" d="M40 70q5-5 10 0q5-5 10 0"/></g>
+        <g class="bird b" fill="none" stroke-width="2"><path class="wing" d="M10 58q4-4 8 0q4-4 8 0"/></g>
+
+        <!-- núi xa -->
+        <path d="M-10 150 L36 104 L64 124 L104 78 L146 120 L176 100 L208 132 L250 146 L300 112 L330 128 L370 100 V250 H-10Z" fill="#F7A8D8"/>
+        <path d="M-10 150 L36 104 L64 124 L104 78 L146 120 L176 100 L208 132 L250 146 L300 112 L330 128 L370 100 V250 H-10Z" fill="url(#dith)" stroke="none"/>
+        <path d="M104 78 L118 92 L110 96 L102 90 L94 94 L90 92Z" fill="#FBF7FF" stroke-width="2"/>
+        <path d="M36 104 L46 114 L38 116 L30 112Z" fill="#FBF7FF" stroke-width="2"/>
+
+        <!-- thác nước (bên trái) -->
+        <path d="M30 170 Q34 132 46 122 L62 122 Q72 134 74 170Z" fill="#E58BC4"/>
+        <path d="M45 122 Q44 146 41 170 L63 170 Q60 146 61 122Z" fill="#9FE3FF"/>
+        <path d="M48 124 Q47 146 45 168 M53 124 V168 M58 124 Q59 146 60 168" class="water" fill="none" stroke="#FBF7FF" stroke-width="2.3"/>
+        <ellipse cx="52" cy="171" rx="17" ry="4.5" fill="#9FE3FF" stroke-width="2"/>
+        <g class="splash" fill="#FBF7FF" stroke="none"><rect x="38" y="164" width="5" height="4"/><rect x="62" y="163" width="5" height="4"/><rect x="50" y="160" width="4" height="4"/></g>
+
+        <!-- sương xa -->
+        <g class="mist" fill="#FBF7FF" stroke="none" opacity=".9">
+          <rect x="84" y="140" width="110" height="7" rx="3.5"/><rect x="250" y="136" width="96" height="7" rx="3.5"/>
+        </g>
+
+        <!-- đồi chè giữa -->
+        <path d="M-10 176 Q50 150 120 162 Q190 174 240 156 Q300 136 370 150 V250 H-10Z" fill="#6ED3A0"/>
+        <path d="M-10 176 Q50 150 120 162 Q190 174 240 156 Q300 136 370 150 V250 H-10Z" fill="url(#tea)" stroke="none"/>
+
+        <!-- rừng thông -->
+        <g fill="#2F7D62" stroke-width="2.2">
+          <g class="pine"><path d="M10 178 L22 142 L34 178Z M14 160 L22 132 L30 160Z"/><path d="M22 178v6"/></g>
+          <g class="pine" style="animation-delay:-1.2s"><path d="M28 182 L38 156 L48 182Z"/><path d="M38 182v5"/></g>
+          <g class="pine" style="animation-delay:-2s"><path d="M70 172 L80 146 L90 172Z"/><path d="M80 172v5"/></g>
+          <g class="pine" style="animation-delay:-.6s"><path d="M300 160 L314 122 L328 160Z M305 140 L314 112 L323 140Z"/><path d="M314 160v6"/></g>
+          <g class="pine" style="animation-delay:-1.6s"><path d="M326 164 L338 134 L350 164Z"/><path d="M338 164v5"/></g>
+          <g class="pine" style="animation-delay:-2.6s"><path d="M280 166 L290 142 L300 166Z"/><path d="M290 166v5"/></g>
+        </g>
+
+        <!-- TRƯỜNG -->
+        <g>
+          <rect x="128" y="128" width="112" height="48" fill="#FBF7FF"/>
+          <rect x="128" y="128" width="112" height="48" fill="url(#dith)" stroke="none" opacity=".5"/>
+          <path d="M120 130 L184 100 L248 130Z" fill="#F7A8D8"/>
+          <path d="M136 130 h96" stroke-width="2"/>
+          <rect x="128" y="150" width="112" height="4" fill="#5B4BE0" stroke-width="2"/>
+          <g stroke-width="2">
+            <rect class="lite" x="138" y="135" width="13" height="11" fill="#FFD84D"/>
+            <rect x="157" y="135" width="13" height="11" fill="#FBF7FF"/>
+            <rect x="198" y="135" width="13" height="11" fill="#FFD84D"/>
+            <rect class="lite" x="217" y="135" width="13" height="11" fill="#FBF7FF" style="animation-delay:-1.5s"/>
+            <rect x="138" y="159" width="13" height="11" fill="#FBF7FF"/>
+            <rect class="lite" x="217" y="159" width="13" height="11" fill="#FFD84D" style="animation-delay:-.8s"/>
+          </g>
+          <path d="M170 176 v-20 h28 v20" fill="#5B4BE0"/>
+          <path d="M184 156 v20" stroke-width="2"/>
+          <circle cx="184" cy="117" r="7" fill="#FFD84D" stroke-width="2"/>
+          <path d="M184 113 v4 l3 2" stroke-width="1.6" fill="none"/>
+          <!-- cột cờ + cờ -->
+          <path d="M184 100 V66"/>
+          <g class="flag"><rect x="184" y="66" width="28" height="18" fill="#E8434B" stroke-width="2"/>
+            <path d="M198 70l1.4 4.2h4.4l-3.6 2.6 1.4 4.2-3.6-2.6-3.6 2.6 1.4-4.2-3.6-2.6h4.4z" fill="#FFD84D" stroke="none"/></g>
+        </g>
+
+        <!-- đường + xe buýt -->
+        <path d="M-30 236 C 40 222, 70 212, 120 214 S 200 222, 236 208 S 300 194, 390 200 L390 214 C 300 208, 250 222, 236 222 S 160 232, 120 228 S 40 236, -30 250Z" fill="#FBF7FF"/>
+        <path d="M-30 243 C 40 229, 70 219, 120 221 S 200 229, 236 215 S 300 201, 390 207" fill="none" stroke-width="1.8" stroke-dasharray="7 7"/>
+
+        <!-- đồi trước -->
+        <path d="M-10 196 Q70 176 130 192 Q150 198 160 206 Q110 210 60 224 Q20 234 -10 240Z" fill="#5B4BE0"/>
+        <path d="M-10 196 Q70 176 130 192 Q150 198 160 206 Q110 210 60 224 Q20 234 -10 240Z" fill="url(#dithL)" stroke="none"/>
+        <path d="M250 214 Q300 190 370 196 V250 H230 Q236 230 250 214Z" fill="#5B4BE0"/>
+        <path d="M250 214 Q300 190 370 196 V250 H230 Q236 230 250 214Z" fill="url(#dithL)" stroke="none"/>
+
+        <!-- bụi chè trước -->
+        <g fill="#6ED3A0" stroke-width="2">
+          <path d="M258 236 a10 8 0 0 1 20 0z"/><path d="M280 236 a12 9 0 0 1 24 0z"/><path d="M306 236 a10 8 0 0 1 20 0z"/><path d="M328 236 a12 9 0 0 1 24 0z"/>
+          <path d="M6 232 a10 8 0 0 1 20 0z"/><path d="M28 228 a12 9 0 0 1 24 0z"/>
+        </g>
+
+        <!-- xe buýt chạy -->
+        <g class="bus">
+          <g transform="translate(-14 -16)">
+            <rect x="0" y="0" width="30" height="14" rx="3" fill="#FFD84D" stroke-width="2"/>
+            <rect x="3" y="3" width="6" height="5" fill="#FBF7FF" stroke-width="1.5"/><rect x="11" y="3" width="6" height="5" fill="#FBF7FF" stroke-width="1.5"/><rect x="19" y="3" width="8" height="5" fill="#FBF7FF" stroke-width="1.5"/>
+            <circle class="wheel" cx="7" cy="14" r="3.2" fill="#2A2378" stroke-width="1.5"/><circle class="wheel" cx="23" cy="14" r="3.2" fill="#2A2378" stroke-width="1.5"/>
+          </g>
+        </g>
+
+        <!-- sương trước -->
+        <g class="mist b" fill="#FBF7FF" stroke="none" opacity=".85">
+          <rect x="60" y="186" width="70" height="6" rx="3"/><rect x="262" y="182" width="80" height="6" rx="3"/>
+        </g>
+
+        <!-- biển tên -->
+        <g transform="translate(14 196)">
+          <path d="M10 22v18M64 22v18" stroke-width="2.5"/>
+          <rect x="0" y="0" width="74" height="24" rx="3" fill="#FBF7FF"/>
+          <text x="37" y="17" text-anchor="middle" font-family="VT323,monospace" font-size="17" fill="#2A2378" stroke="none">BẢO LỘC</text>
+        </g>
+      </g>
+    </svg>
+
+    <div class="hud">
+      <div><small>CƠ SỞ</small><b>02</b></div>
+      <div><small>LỚP</small><b>66</b></div>
+      <div><small>TỔ CM</small><b>07</b></div>
+    </div>
+    <div class="boot">
+      <div class="row1"><span id="bootTxt">Đang khởi động…</span><span id="bootPct">0%</span></div>
+      <div class="prog"><i></i></div>
+    </div>
+  </div>
+
+  <div class="titlebox">
+    <h1 class="title">THPT<br><span class="l2">BẢO LỘC</span></h1>
+    <div class="tags"><span class="tag">Cơ sở 1</span><span class="tag">Cơ sở 2</span><span class="tag" id="greet">Xin chào</span></div>
+  </div>
+
+  <!-- =================== DESKTOP ICONS =================== -->
+  <section id="menu">
+    <h2 class="sec-h"><span class="n">01</span>Màn hình chính</h2>
+    <div class="desktop" id="desktop"></div>
+  </section>
+
+  <!-- =================== SỔ THEO DÕI LỚP =================== -->
+  <div class="win" id="hocsinh">
+    <div class="tb y"><span class="name">so_theo_doi_lop.exe</span><span class="ctl"><i>_</i><i>×</i></span></div>
+    <div class="pad">
+      <h2 class="sec-h" style="margin-bottom:14px"><span class="n">02</span>Theo dõi học sinh</h2>
+      <div class="seg" id="seg"><button data-cs="cs1" class="on">Cơ sở 1</button><button data-cs="cs2">Cơ sở 2</button></div>
+      <label class="addr"><span>C:\&gt;</span><input id="q" type="text" placeholder="Gõ tên lớp… vd 10A3" autocomplete="off"></label>
+      <div id="classWrap"></div>
+    </div>
+  </div>
+
+  <div class="win dlg">
+    <div class="tb"><span class="name">Thông báo</span><span class="ctl"><i>×</i></span></div>
+    <div class="pad">
+      <div class="q">?</div>
+      <div style="flex:1">
+        <p>Chưa vào được sổ theo dõi lớp? GVCN &amp; học sinh đăng kí Gmail trước nha.</p>
+        <div class="btns"><a class="b main" id="dkHS" target="_blank" rel="noopener">Đăng kí</a><button class="b" data-ok>Để sau</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== TỔ CHUYÊN MÔN =================== -->
+  <div class="win" id="tcm">
+    <div class="tb g"><span class="name">explorer.exe</span><span class="ctl"><i>_</i><i>□</i><i>×</i></span></div>
+    <div class="path">📁 C:\Truong\To_Chuyen_Mon\</div>
+    <div class="pad" style="padding-bottom:4px"><h2 class="sec-h"><span class="n">03</span>Tổ chuyên môn</h2></div>
+    <div class="files" id="files"></div>
+    <div class="status"><span id="fcount">8 mục</span><span>Google Sheets</span></div>
+  </div>
+
+  <div class="win dlg">
+    <div class="tb"><span class="name">Thông báo</span><span class="ctl"><i>×</i></span></div>
+    <div class="pad">
+      <div class="q">!</div>
+      <div style="flex:1">
+        <p>Muốn xem sổ tổ chuyên môn? Nhập email để được cấp quyền.</p>
+        <div class="btns"><a class="b main" id="dkTCM" target="_blank" rel="noopener">Nhập email</a><button class="b" data-ok>OK</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== LIÊN HỆ =================== -->
+  <div class="win" id="lienhe">
+    <div class="tb p"><span class="name">lien_he.txt — Notepad</span><span class="ctl"><i>×</i></span></div>
+    <div class="note" id="note"></div>
+  </div>
+
+  <p class="foot">© <span id="yr"></span> THPT BẢO LỘC<br>Task completed successfully ✓</p>
+</div>
+
+<!-- taskbar -->
+<div class="startmenu" id="startmenu">
+  <div class="side">BảoLộc OS</div>
+  <a href="#top">🏠 Trang đầu</a>
+  <a href="#menu">🖥️ Màn hình chính</a>
+  <a href="#hocsinh">📒 Theo dõi học sinh</a>
+  <a href="#tcm">📁 Tổ chuyên môn</a>
+  <a href="#lienhe">📝 Liên hệ</a>
+</div>
+<nav class="taskbar"><div class="in">
+  <button class="start" id="startBtn">▶ Start</button>
+  <div class="tasks">
+    <a href="#hocsinh">Lớp</a><a href="#tcm">Tổ CM</a><a href="#lienhe">Liên hệ</a>
+  </div>
+  <span class="tclock" id="clk2">--:--</span>
+</div></nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   CONFIG — chỉ cần sửa ở đây
+   ========================================================= */
+const CONFIG = {
+  /* icon: notebook | board | calendar | monitor | clipboard */
+  desktop: [
+    { icon:"notebook",  label:"Theo dõi HS",   href:"#hocsinh" },
+    { icon:"board",     label:"Tổ chuyên môn", href:"#tcm" },
+    { icon:"calendar",  label:"Thời khóa biểu", href:"https://tusizhere.github.io/ExportHTML/" },
+    { icon:"monitor",   label:"vnEdu",          href:"https://eacmmcvumcsgdlamdong.vnedu.vn/v5/" },
+    { icon:"clipboard", label:"Lịch công tác",  href:"" },          // dán link lịch công tác tuần vào đây
+    { icon:"phone",     label:"Liên hệ",        href:"#lienhe" }
+  ],
+
+  formHS:  "https://forms.gle/wcMdd21S2c29RBic9",
+  formTCM: "https://forms.gle/vUcyRGVwT1Cv773MA",
+
+  toChuyenMon: [
+    { name:"Toán – Tin",              color:"#D9D2FF", href:"https://docs.google.com/spreadsheets/d/1QbyeP6qdUBjtN8ltVfYDkl4BgJC3bEaD_K7SX41zk0Q/edit" },
+    { name:"Lý – CNKT",               color:"#FFD84D", href:"https://docs.google.com/spreadsheets/d/1rHH2vHTGt0K5W0COdJSs1dxZu71r2A9JWc6iejRKt94/edit" },
+    { name:"Hóa – Sinh – CNNN",       color:"#F7A8D8", href:"https://docs.google.com/spreadsheets/d/17Gr8uaq_RNcagsKZwMwuOPSp9RYQCknIMsyT-ZPwgN4/edit" },
+    { name:"Văn – Địa",               color:"#6ED3A0", href:"https://docs.google.com/spreadsheets/d/1Dz6fqA0UuLwmwhQkY_XTo9uc839MkbZX_QrZ5H5vBjs/edit" },
+    { name:"Sử – KTPL – GDTC – GDQP", color:"#D9D2FF", href:"https://docs.google.com/spreadsheets/d/1BhjtziykhXdoOhzQYlYmqD4AuUSq7OK_zHt6kXdlvFk/edit" },
+    { name:"Ngoại ngữ",               color:"#F7A8D8", href:"https://docs.google.com/spreadsheets/d/1rB8z2UGvh4P8uk5V-ldc3mSASJT3Ttzof_ZZFnkrKJQ/edit" },
+    { name:"Hành chính",              color:"#6ED3A0", href:"https://docs.google.com/spreadsheets/d/1nu257aY9pxdhwimt1dpPUr3Z5xalikt8M_5kokh-UUk/edit" },
+    { name:"Tổng hợp",                color:"#FFD84D", href:"https://docs.google.com/spreadsheets/d/1nu257aY9pxdhwimt1dpPUr3Z5xalikt8M_5kokh-UUk/edit" }
+  ],
+
+  /* Link sổ từng lớp. Để "" thì phím hiện viền nét đứt (chưa có link).
+     Ví dụ: "10A1": "https://docs.google.com/spreadsheets/d/xxxx/edit" */
+  classLinks: {
+    cs1: { "10A1":"" },
+    cs2: { "10B1":"" }
+  },
+
+  campuses: [
+    { name:"Cơ sở 1", addr:"245 Nguyễn Công Trứ, Phường 2, Bảo Lộc", phone:"02633 717 497", email:"c23nguyendu.lamdong@moet.edu.vn" },
+    { name:"Cơ sở 2", addr:"101 Lê Hồng Phong, Phường 1, Bảo Lộc",  phone:"02633 864 300", email:"thptbaolocedu@gmail.com" }
+  ]
+};
+
+/* ================= ICON tự vẽ (cùng một nét) ================= */
+const S = 'stroke="#2A2378" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"';
+const ICONS = {
+  notebook:`<svg viewBox="0 0 48 48"><g ${S}><rect x="10" y="5" width="30" height="38" rx="3" fill="#F7A8D8"/><rect x="16" y="11" width="18" height="9" rx="1.5" fill="#FBF7FF"/><path d="M17 27h16M17 33h11" fill="none"/><path d="M7 11h6M7 19h6M7 27h6M7 35h6" fill="none"/><path d="M36 5v38" fill="none" stroke-width="2"/></g></svg>`,
+  board:`<svg viewBox="0 0 48 48"><g ${S}><rect x="4" y="7" width="40" height="28" rx="3" fill="#2F9E74"/><rect x="8" y="11" width="32" height="20" rx="1.5" fill="#6ED3A0"/><path d="M14 26l4-10 4 10M15.5 22.5h5M28 21h8M32 17v8" fill="none" stroke="#FBF7FF"/><path d="M14 35l-4 9M34 35l4 9M24 35v6" fill="none"/></g></svg>`,
+  calendar:`<svg viewBox="0 0 48 48"><g ${S}><rect x="5" y="9" width="38" height="34" rx="3" fill="#FBF7FF"/><path d="M5 12a3 3 0 0 1 3-3h32a3 3 0 0 1 3 3v8H5z" fill="#5B4BE0"/><path d="M15 5v8M33 5v8" fill="none"/><g stroke-width="2"><rect x="10" y="25" width="7" height="6" fill="#D9D2FF"/><rect x="20.5" y="25" width="7" height="6" fill="#FFD84D"/><rect x="31" y="25" width="7" height="6" fill="#D9D2FF"/><rect x="10" y="34" width="7" height="5" fill="#D9D2FF"/><rect x="20.5" y="34" width="7" height="5" fill="#D9D2FF"/></g></g></svg>`,
+  monitor:`<svg viewBox="0 0 48 48"><g ${S}><rect x="5" y="6" width="38" height="28" rx="3" fill="#D9D2FF"/><rect x="10" y="11" width="28" height="18" rx="1.5" fill="#5B4BE0"/><path d="M18 18v2M30 18v2" fill="none" stroke="#FBF7FF" stroke-width="3"/><path d="M19 23q5 4 10 0" fill="none" stroke="#FBF7FF"/><path d="M18 34l-2 6h16l-2-6" fill="#FBF7FF"/><path d="M12 43h24" fill="none"/></g></svg>`,
+  clipboard:`<svg viewBox="0 0 48 48"><g ${S}><rect x="8" y="8" width="32" height="36" rx="3" fill="#FFD84D"/><rect x="12" y="13" width="24" height="27" rx="1.5" fill="#FBF7FF"/><rect x="17" y="4" width="14" height="8" rx="2" fill="#D9D2FF"/><path d="M16 21l2.5 2.5 4-4M16 31l2.5 2.5 4-4M26 22h6M26 32h6" fill="none" stroke-width="2.2"/></g></svg>`,
+  phone:`<svg viewBox="0 0 48 48"><g ${S}><rect x="13" y="4" width="22" height="40" rx="4" fill="#6ED3A0"/><rect x="16.5" y="9" width="15" height="25" rx="1.5" fill="#FBF7FF"/><circle cx="24" cy="39" r="2" fill="#2A2378"/><path d="M20 15h8M20 20h8M20 25h5" fill="none" stroke-width="2"/></g></svg>`,
+  folder:c=>`<svg viewBox="0 0 48 48"><g ${S}><path d="M4 12a3 3 0 0 1 3-3h11l4 5h19a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="${c}"/><path d="M4 19h40" fill="none" stroke-width="2"/><rect x="10" y="25" width="14" height="4" rx="1" fill="#FBF7FF" stroke-width="2"/></g></svg>`
+};
+
+/* ========================================================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ext = h => /^https?:/.test(h);
+const lk = h => h ? `href="${esc(h)}"${ext(h)?' target="_blank" rel="noopener"':''}` : 'href="#" data-soon="1"';
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800)}
+
+/* desktop */
+$('#desktop').innerHTML = CONFIG.desktop.map(d =>
+  `<a class="ico${d.href?'':' soon'}" ${lk(d.href)}><span class="art">${ICONS[d.icon]}</span><span>${esc(d.label)}</span></a>`).join('');
+
+/* forms */
+$('#dkHS').href = CONFIG.formHS; $('#dkTCM').href = CONFIG.formTCM;
+
+/* lớp */
+let cs='cs1';
+function renderClasses(){
+  const q=$('#q').value.trim().toUpperCase().replace(/\s/g,''), L=cs==='cs1'?'A':'B';
+  let h='';
+  for(const k of [10,11,12]){
+    const list=Array.from({length:11},(_,i)=>`${k}${L}${i+1}`).filter(c=>!q||c.includes(q));
+    if(!list.length) continue;
+    h+=`<div class="khoi k${k}"><h4>Khối ${k} <em>${list.length} lớp</em></h4><div class="keys">`+
+      list.map(c=>{const u=(CONFIG.classLinks[cs]||{})[c];
+        return `<a class="key${u?'':' nolink'}" ${lk(u)}>${c}</a>`}).join('')+`</div></div>`;
+  }
+  $('#classWrap').innerHTML = h || `<p class="empty">Không tìm thấy “${esc(q)}” :(</p>`;
+}
+$('#seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('on',x===b));cs=b.dataset.cs;renderClasses()});
+$('#q').addEventListener('input',renderClasses); renderClasses();
+
+/* tổ chuyên môn */
+$('#files').innerHTML = CONFIG.toChuyenMon.map(t =>
+  `<a class="file" ${lk(t.href)}>${ICONS.folder(t.color)}<b>Tổ ${esc(t.name)}</b><span class="go">&gt;</span></a>`).join('');
+$('#fcount').textContent = CONFIG.toChuyenMon.length + ' mục';
+
+/* liên hệ */
+$('#note').innerHTML = CONFIG.campuses.map(c =>
+  `<p class="h">» ${c.name}</p><p>📍 ${esc(c.addr)}</p><p>☎️ <a href="tel:${c.phone.replace(/\s/g,'')}">${esc(c.phone)}</a></p><p>✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></p>`).join('<p>&nbsp;</p>');
+$('#yr').textContent = new Date().getFullYear();
+
+/* đồng hồ + lời chào */
+function tick(){const d=new Date(),t=d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
+  $('#clk1').textContent=d.toLocaleDateString('vi-VN')+' '+t; $('#clk2').textContent=t}
+tick(); setInterval(tick,15000);
+const hr=new Date().getHours();
+$('#greet').textContent = hr<11?'☀️ Chào buổi sáng':hr<14?'🍱 Buổi trưa':hr<18?'🌤️ Buổi chiều':'🌙 Buổi tối';
+
+/* thanh khởi động */
+(()=>{const start=performance.now(),D=2600;
+  const step=n=>{const p=Math.min(100,Math.round((n-start)/D*100));$('#bootPct').textContent=p+'%';
+    if(p<100)requestAnimationFrame(step);else $('#bootTxt').textContent='Sẵn sàng! Chào mừng đến Bảo Lộc ✓'};
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){$('#bootPct').textContent='100%';$('#bootTxt').textContent='Sẵn sàng! ✓'}
+  else requestAnimationFrame(step)})();
+
+/* start menu */
+$('#startBtn').addEventListener('click',e=>{e.stopPropagation();$('#startmenu').classList.toggle('open');$('#startBtn').classList.toggle('on')});
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#startmenu')&&!e.target.closest('#startBtn')){$('#startmenu').classList.remove('open');$('#startBtn').classList.remove('on')}
+  if(e.target.closest('#startmenu a')){$('#startmenu').classList.remove('open');$('#startBtn').classList.remove('on')}
+  if(e.target.closest('[data-soon]')){e.preventDefault();toast('Link đang cập nhật…')}
+  if(e.target.closest('[data-ok]')){toast('OK 👌')}
+});
+</script>
+</body>
+</html>
