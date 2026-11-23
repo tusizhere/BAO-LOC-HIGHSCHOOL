@@ -2,180 +2,144 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#A99DF5">
-<title>BảoLộc OS · THPT Bảo Lộc</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5A2E86">
+<title>THPT Bảo Lộc · Cổng truy cập</title>
 <meta name="description" content="Cổng truy cập nhanh Trường THPT Bảo Lộc – theo dõi học sinh, tổ chuyên môn, thời khóa biểu, vnEdu.">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@500;600;700;800&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   BẢO LỘC OS — retro computer edition
+   THPT BẢO LỘC — style caro tím (theo bản Canva)
    Sửa link ở phần CONFIG trong <script> cuối file.
    ========================================================= */
 :root{
-  --ink:#2A2378;      /* viền + chữ chính */
-  --desk:#A99DF5;     /* nền desktop */
-  --desk-d:#968AEE;
-  --paper:#FBF7FF;    /* nền cửa sổ */
-  --lav:#D9D2FF;
-  --violet:#5B4BE0;
-  --pink:#F7A8D8;
-  --yellow:#FFD84D;
-  --green:#6ED3A0;
-  --green-d:#2F9E74;
+  --ink:#111;
+  --p1:#4E2A78;   /* tím đậm */
+  --p2:#8A5CB8;   /* tím vừa */
+  --p3:#DDBDFB;   /* tím nhạt */
+  --yellow:#FFD744;
+  --cyan:#5BD2FF;
+  --orange:#FF8F52;
+  --pink:#F7B1DF;
+  --lav:#9D8BEE;
+  --green:#3FAA6E;
+  --lemon:#FFDF5A;
+  --lime:#C2FF6E;
+  --red:#E8323C;
   --line:3px solid var(--ink);
-  --sh:4px 4px 0 var(--ink);
-  --sans:'Be Vietnam Pro',system-ui,sans-serif;
-  --disp:'Bricolage Grotesque','Be Vietnam Pro',system-ui,sans-serif;
-  --px:'VT323','Courier New',monospace;
+  --title:'Anton','Lexend',Impact,sans-serif;
+  --body:'Lexend',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  font-family:var(--sans);font-size:18px;line-height:1.45;color:var(--ink);min-height:100vh;
-  background-color:var(--desk);
-  background-image:radial-gradient(var(--desk-d) 1.6px,transparent 1.8px);background-size:18px 18px;
-  padding-bottom:84px;
+  font-family:var(--body);font-size:18px;color:var(--ink);min-height:100vh;
+  /* nền caro tím */
+  background-color:var(--p3);
+  background-image:
+    linear-gradient(90deg,rgba(78,42,120,.55) 50%,transparent 50%),
+    linear-gradient(rgba(78,42,120,.55) 50%,transparent 50%);
+  background-size:120px 120px;
+  background-attachment:fixed;
 }
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;cursor:pointer}
-.px{font-family:var(--px);letter-spacing:.3px}
-.app{max-width:540px;margin:0 auto;padding:10px 12px 20px;display:flex;flex-direction:column;gap:18px}
+.app{max-width:620px;margin:0 auto;padding:16px 14px 40px;display:flex;flex-direction:column;gap:26px}
 
-/* ---------- thanh trạng thái trên cùng ---------- */
-.topbar{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:var(--line);padding-top:env(safe-area-inset-top)}
-.topbar .in{max-width:540px;margin:0 auto;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-family:var(--px);font-size:1.35rem;line-height:1}
-.topbar .os b{background:var(--ink);color:var(--paper);padding:0 6px;border-radius:4px;margin-right:6px;font-weight:400}
-.bat{display:inline-flex;gap:2px;align-items:center;margin-left:8px;vertical-align:middle}
-.bat i{width:5px;height:11px;background:var(--green-d)}
-.bat::after{content:"";width:3px;height:6px;background:var(--ink);margin-left:1px}
-
-/* ---------- WINDOW ---------- */
-.win{background:var(--paper);border:var(--line);border-radius:10px;box-shadow:var(--sh);overflow:hidden}
-.tb{display:flex;align-items:center;gap:8px;padding:5px 6px 5px 10px;background:var(--lav);border-bottom:var(--line)}
-.tb.p{background:var(--pink)} .tb.y{background:var(--yellow)} .tb.g{background:var(--green)}
-.tb .name{flex:1;font-family:var(--px);font-size:1.4rem;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tb .ctl{display:flex;gap:5px}
-.tb .ctl i{width:24px;height:24px;border:2.5px solid var(--ink);background:var(--paper);border-radius:5px;display:grid;place-items:center;font:400 1.2rem/1 var(--px)}
-.pad{padding:14px}
-
-/* ---------- HERO ---------- */
-.scene{display:block;width:100%;height:auto;background:#8C7CF0}
-.hud{display:grid;grid-template-columns:repeat(3,1fr);border-top:var(--line);background:var(--ink);gap:3px}
-.hud div{background:var(--paper);padding:6px 4px;text-align:center;line-height:1}
-.hud small{display:block;font-family:var(--px);font-size:1.05rem;opacity:.7}
-.hud b{font-family:var(--px);font-size:1.9rem;font-weight:400}
-.boot{padding:12px 14px 14px;border-top:var(--line)}
-.boot .row1{display:flex;justify-content:space-between;font-family:var(--px);font-size:1.3rem;line-height:1;margin-bottom:6px}
-.prog{height:22px;border:var(--line);border-radius:5px;padding:2px;background:#fff}
-.prog i{display:block;height:100%;width:0;border-radius:2px;
-  background:repeating-linear-gradient(90deg,var(--violet) 0 12px,transparent 12px 15px);animation:load 2.6s steps(26) forwards}
-@keyframes load{to{width:100%}}
-
-/* tiêu đề lớn kiểu chữ nổi 3D */
-.titlebox{text-align:center;padding:6px 0 0}
-.title{
-  font-family:var(--disp);font-weight:800;font-size:clamp(3rem,15vw,4.6rem);line-height:.9;letter-spacing:-1px;
-  color:var(--paper);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;
-  text-shadow:1px 1px 0 var(--ink),2px 2px 0 var(--ink),3px 3px 0 var(--ink),4px 4px 0 var(--ink),5px 5px 0 var(--ink),6px 6px 0 var(--ink);
+/* ---------- BANNER VÀNG (giống bản Canva) ---------- */
+.banner{position:relative;display:flex;align-items:center;margin-left:14px}
+.banner .chk{
+  position:absolute;left:-14px;top:50%;transform:translateY(-50%) rotate(-4deg);z-index:2;
+  width:66px;height:66px;background:var(--pink);border:var(--line);display:grid;place-items:center;
 }
-.title .l2{color:var(--yellow)}
-.tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-.tag{border:var(--line);background:var(--paper);border-radius:8px;padding:6px 12px;font-weight:800;font-size:1.05rem;box-shadow:3px 3px 0 var(--ink)}
-
-/* ---------- DESKTOP ICONS ---------- */
-.sec-h{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:800;font-size:1.55rem;line-height:1.1}
-.sec-h .n{font-family:var(--px);font-weight:400;font-size:1.3rem;background:var(--ink);color:var(--paper);padding:2px 8px;border-radius:5px}
-.desktop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 8px;margin-top:12px}
-.ico{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;-webkit-tap-highlight-color:transparent}
-.ico .art{width:76px;height:76px;display:grid;place-items:center;border-radius:14px;transition:.12s}
-.ico .art svg{width:66px;height:66px;filter:drop-shadow(3px 3px 0 var(--ink))}
-.ico span{font-weight:800;font-size:1rem;line-height:1.2;background:var(--paper);border:2.5px solid var(--ink);border-radius:6px;padding:3px 7px}
-.ico:hover .art,.ico:active .art{background:rgba(255,255,255,.35);outline:2.5px dashed var(--ink)}
-.ico:active .art svg{transform:translate(2px,2px);filter:drop-shadow(1px 1px 0 var(--ink))}
-.ico.soon span{opacity:.65}
-
-/* ---------- DIALOG nhỏ ---------- */
-.dlg .pad{display:flex;gap:12px;align-items:flex-start}
-.dlg .q{width:40px;height:40px;flex-shrink:0;border:var(--line);border-radius:50%;background:var(--yellow);display:grid;place-items:center;font-family:var(--px);font-size:1.8rem;line-height:1}
-.dlg p{font-weight:700;font-size:1.08rem}
-.btns{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-.b{
-  flex:1;min-width:120px;text-align:center;padding:11px 12px;border:var(--line);border-radius:8px;background:var(--paper);
-  box-shadow:3px 3px 0 var(--ink);font-weight:800;font-size:1.05rem;transition:.1s
+.banner .chk svg{width:48px;height:48px}
+.banner h2{
+  flex:1;background:var(--yellow);border:var(--line);border-radius:6px;padding:12px 14px 10px 66px;
+  font-family:var(--title);font-weight:400;font-size:clamp(1.6rem,7vw,2.3rem);line-height:1.05;letter-spacing:.5px;text-transform:uppercase;
+  box-shadow:5px 5px 0 var(--ink);
 }
-.b.main{background:var(--violet);color:#fff}
-.b:active,.b:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.spark{position:absolute;left:-24px;top:-18px;width:44px;z-index:3;animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(.85) rotate(-8deg)}}
 
-/* ---------- LỚP HỌC (phím bàn phím) ---------- */
-.seg{display:grid;grid-template-columns:1fr 1fr;border:var(--line);border-radius:8px;overflow:hidden;margin-bottom:12px}
-.seg button{border:0;padding:12px;font-family:var(--disp);font-weight:800;font-size:1.15rem;background:var(--paper)}
-.seg button+button{border-left:var(--line)}
-.seg button.on{background:var(--ink);color:var(--yellow)}
-.addr{display:flex;align-items:center;gap:8px;border:var(--line);border-radius:8px;background:#fff;padding:0 12px;margin-bottom:14px}
-.addr span{font-family:var(--px);font-size:1.5rem}
-.addr input{flex:1;border:0;outline:0;background:none;padding:13px 0;font:700 1.08rem var(--sans);color:var(--ink);min-width:0}
-.addr input::placeholder{color:#8c84c7}
-.addr:focus-within{box-shadow:0 0 0 4px var(--yellow)}
+/* ---------- HEADER ---------- */
+.head{display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:6px}
+.logo{width:96px;height:96px;border-radius:50%;background:#fff;border:var(--line);object-fit:contain;box-shadow:4px 4px 0 var(--ink)}
+.school{
+  background:var(--yellow);border:var(--line);border-radius:999px;padding:8px 26px 6px;box-shadow:5px 5px 0 var(--ink);
+  font-family:var(--title);font-size:clamp(2.2rem,11vw,3.2rem);line-height:1.05;letter-spacing:1px;color:#D7263D;text-align:center;
+  -webkit-text-stroke:1.5px var(--ink);
+}
+.clock{display:inline-flex;gap:8px;align-items:center;background:#fff;border:var(--line);border-radius:999px;padding:5px 14px;font-weight:600;font-size:1rem}
+.clock i{width:10px;height:10px;border-radius:50%;background:var(--green);animation:blink 1.2s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- CẢNH BẢO LỘC ---------- */
+.frame{border:var(--line);border-radius:10px;overflow:hidden;box-shadow:6px 6px 0 var(--ink);background:#fff}
+.scene{display:block;width:100%;height:auto}
+
+/* ---------- NÚT MÀU ---------- */
+.btns{display:grid;gap:14px}
+.btn{
+  position:relative;display:flex;align-items:center;justify-content:center;text-align:center;min-height:68px;padding:12px 16px;
+  background:var(--c);border:var(--line);border-radius:6px;box-shadow:4px 4px 0 var(--ink);
+  font-weight:500;font-size:1.25rem;line-height:1.25;text-transform:uppercase;
+  text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;
+  transition:transform .1s,box-shadow .1s;
+}
+.btn:hover,.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn.icon{justify-content:flex-start;gap:14px;text-align:left;padding-left:12px}
+.btn .ic{width:48px;height:48px;flex-shrink:0;background:#fff;border:var(--line);border-radius:6px;display:grid;place-items:center;text-decoration:none}
+.btn .ic svg{width:34px;height:34px}
+.btn.soon{opacity:.6}
+.btn.soon::after{content:"SẮP CÓ";position:absolute;top:-10px;right:10px;font-size:.7rem;font-weight:700;background:var(--red);color:#fff;border:2px solid var(--ink);padding:1px 6px;text-decoration:none}
+
+@media(min-width:560px){ .two{grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);grid-auto-flow:column} }
+
+/* ---------- DẢI MŨI TÊN + NÚT ĐỎ ---------- */
+.callout{display:flex;align-items:center;gap:8px}
+.arrows{flex:1;display:flex;gap:3px;overflow:hidden;height:20px}
+.arrows span{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;flex-shrink:0;animation:flick 1.2s infinite}
+.arrows.r span{border-left:14px solid #fff}
+.arrows.l{justify-content:flex-end}
+.arrows.l span{border-right:14px solid #fff}
+@keyframes flick{50%{opacity:.25}}
+.red{
+  flex-shrink:0;max-width:62%;background:var(--red);color:#fff;border:var(--line);border-radius:6px;padding:10px 12px;
+  font-weight:700;font-size:.95rem;line-height:1.25;text-transform:uppercase;text-align:center;box-shadow:3px 3px 0 var(--ink);transition:.1s
+}
+.red:hover,.red:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+
+/* ---------- LỚP HỌC ---------- */
+.panel{background:rgba(255,255,255,.92);border:var(--line);border-radius:8px;padding:14px;box-shadow:5px 5px 0 var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.tabs button{padding:12px;border:var(--line);border-radius:6px;background:#fff;font-weight:700;font-size:1.1rem;text-transform:uppercase}
+.tabs button.on{background:var(--p1);color:var(--yellow);box-shadow:inset 0 0 0 2px var(--yellow)}
+.search{display:flex;align-items:center;gap:8px;border:var(--line);border-radius:6px;padding:0 12px;background:#fff;margin-bottom:14px}
+.search input{flex:1;border:0;outline:0;padding:13px 0;font:500 1.05rem var(--body);background:none;min-width:0}
+.search:focus-within{box-shadow:0 0 0 4px var(--yellow)}
 .khoi{margin-bottom:16px}
-.khoi h4{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:800;font-size:1.25rem;margin-bottom:9px}
-.khoi h4 em{font-style:normal;font-family:var(--px);font-weight:400;font-size:1.2rem;background:var(--c);border:2px solid var(--ink);border-radius:4px;padding:0 6px;line-height:1.2}
-.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.key{
-  position:relative;text-align:center;padding:10px 0 12px;font-family:var(--disp);font-weight:800;font-size:1.15rem;
-  background:var(--c);border:2.5px solid var(--ink);border-radius:9px;
-  box-shadow:inset 0 -6px 0 rgba(42,35,120,.22),0 3px 0 var(--ink);transition:.08s;
-}
-.key:active,.key:hover{transform:translateY(3px);box-shadow:inset 0 -3px 0 rgba(42,35,120,.22),0 0 0 var(--ink)}
-.key.nolink{opacity:.55;border-style:dashed;box-shadow:none}
-.k10{--c:var(--pink)} .k11{--c:var(--lav)} .k12{--c:var(--green)}
-.empty{text-align:center;font-family:var(--px);font-size:1.4rem;padding:10px}
+.khoi h3{font-family:var(--title);font-weight:400;font-size:1.5rem;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.khoi h3 span{font-family:var(--body);font-size:.8rem;font-weight:600;background:var(--c);border:2px solid var(--ink);padding:1px 8px;border-radius:4px}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.key{padding:12px 0;text-align:center;font-weight:700;font-size:1.1rem;background:var(--c);border:2.5px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 var(--ink);transition:.1s}
+.key:hover,.key:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.key.nolink{opacity:.45;box-shadow:none;border-style:dashed}
+.k10{--c:var(--cyan)} .k11{--c:var(--pink)} .k12{--c:var(--lime)}
+.empty{text-align:center;font-weight:600;padding:10px}
 
-/* ---------- EXPLORER tổ chuyên môn ---------- */
-.path{display:flex;align-items:center;gap:6px;padding:8px 12px;border-bottom:var(--line);background:#fff;font-family:var(--px);font-size:1.25rem;line-height:1}
-.files{display:flex;flex-direction:column}
-.file{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:2px dashed #cfc8f5;min-height:64px}
-.file:last-child{border-bottom:0}
-.file svg{width:40px;height:40px;flex-shrink:0}
-.file b{flex:1;font-weight:800;font-size:1.12rem;line-height:1.25}
-.file .go{font-family:var(--px);font-size:1.6rem}
-.file:hover,.file:active{background:var(--yellow)}
-.status{padding:6px 12px;border-top:var(--line);background:var(--lav);font-family:var(--px);font-size:1.2rem;display:flex;justify-content:space-between}
-
-/* ---------- NOTEPAD liên hệ ---------- */
-.note{background:#fff;background-image:repeating-linear-gradient(transparent 0 33px,#e4defc 33px 35px);padding:4px 14px 10px}
-.note p{font-weight:700;font-size:1.02rem;line-height:35px}
-.note .h{font-family:var(--disp);font-weight:800;font-size:1.2rem}
-.note a{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--violet)}
-
-.foot{text-align:center;font-family:var(--px);font-size:1.3rem;line-height:1.2}
-
-/* ---------- TASKBAR ---------- */
-.taskbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--paper);border-top:var(--line);padding-bottom:env(safe-area-inset-bottom)}
-.taskbar .in{max-width:540px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:8px 10px}
-.start{display:flex;align-items:center;gap:6px;padding:8px 12px;border:var(--line);border-radius:8px;background:var(--yellow);box-shadow:3px 3px 0 var(--ink);font-family:var(--disp);font-weight:800;font-size:1.05rem}
-.start.on{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-.tasks{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-.tasks::-webkit-scrollbar{display:none}
-.tasks a{flex-shrink:0;padding:8px 10px;border:2.5px solid var(--ink);border-radius:8px;background:#fff;font-weight:800;font-size:.95rem;line-height:1.2}
-.tasks a:active{background:var(--lav)}
-.tclock{font-family:var(--px);font-size:1.35rem;padding:0 2px;white-space:nowrap}
-.startmenu{
-  position:fixed;left:max(10px,calc(50% - 260px));bottom:76px;z-index:61;width:min(300px,calc(100% - 20px));
-  background:var(--paper);border:var(--line);border-radius:10px;box-shadow:var(--sh);display:none;overflow:hidden
-}
-.startmenu.open{display:block;animation:pop .16s steps(3)}
-@keyframes pop{from{transform:translateY(16px);opacity:0}}
-.startmenu .side{background:var(--ink);color:var(--yellow);font-family:var(--px);font-size:1.4rem;padding:8px 12px}
-.startmenu a{display:flex;align-items:center;gap:10px;padding:12px 14px;font-weight:800;font-size:1.05rem;border-top:2px dashed #cfc8f5}
-.startmenu a:hover,.startmenu a:active{background:var(--yellow)}
+/* ---------- LIÊN HỆ ---------- */
+.contact{display:grid;gap:14px}
+.cp{background:#fff;border:var(--line);border-radius:8px;padding:14px;box-shadow:4px 4px 0 var(--ink)}
+.cp h3{font-family:var(--title);font-weight:400;font-size:1.5rem;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;display:inline-block;background:var(--c);border:2px solid var(--ink);padding:0 10px}
+.cp p{font-size:1.02rem;line-height:1.75}
+.cp a{text-decoration:underline;text-underline-offset:3px}
+.foot{text-align:center;color:#fff;font-weight:600;font-size:.9rem;text-shadow:1px 1px 0 var(--ink)}
 
 /* toast */
-.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:70;
-  background:var(--paper);border:var(--line);border-radius:8px;box-shadow:var(--sh);padding:10px 16px;font-family:var(--px);font-size:1.35rem;transition:.2s steps(3);white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,24px);opacity:0;pointer-events:none;z-index:70;background:var(--yellow);border:var(--line);border-radius:6px;box-shadow:4px 4px 0 var(--ink);padding:10px 16px;font-weight:700;transition:.2s;white-space:nowrap}
 .toast.show{transform:translate(-50%,0);opacity:1}
 
 /* ---------- ANIMATION CẢNH ---------- */
@@ -206,25 +170,23 @@ button{font:inherit;color:inherit;cursor:pointer}
 .wheel{transform-origin:center;transform-box:fill-box;animation:spin .5s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.prog i{width:100%}}
-@media(max-width:360px){.keys{grid-template-columns:repeat(3,1fr)}.desktop .art{width:64px;height:64px}.desktop .art svg{width:56px;height:56px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media(max-width:360px){.keys{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
-
-<!-- thanh trạng thái -->
-<div class="topbar"><div class="in">
-  <span class="os"><b>☰</b>BảoLộc OS</span>
-  <span><span id="clk1">--:--</span><span class="bat"><i></i><i></i><i></i></span></span>
-</div></div>
-
 <div class="app">
 
-  <!-- =================== HERO =================== -->
-  <div class="win" id="top">
-    <div class="tb p"><span class="name">C:\BAO_LOC\khoi_dong.exe</span><span class="ctl"><i>_</i><i>□</i><i>×</i></span></div>
+  <!-- HEADER -->
+  <header class="head" id="top">
+    <img class="logo" src="logo.png" alt="Logo THPT Bảo Lộc" onerror="this.remove()">
+    <h1 class="school">THPT BẢO LỘC</h1>
+    <span class="clock"><i></i><span id="clock">--</span></span>
+  </header>
 
-    <svg class="scene" viewBox="0 0 360 250" role="img" aria-label="Cảnh đồi chè Bảo Lộc">
+  <!-- CẢNH BẢO LỘC -->
+  <div class="frame">
+<svg class="scene" viewBox="0 0 360 250" role="img" aria-label="Cảnh đồi chè Bảo Lộc">
       <defs>
         <clipPath id="cp"><rect width="360" height="250"/></clipPath>
         <pattern id="dith" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".9" fill="#2A2378" opacity=".28"/></pattern>
@@ -360,100 +322,52 @@ button{font:inherit;color:inherit;cursor:pointer}
         <g transform="translate(14 196)">
           <path d="M10 22v18M64 22v18" stroke-width="2.5"/>
           <rect x="0" y="0" width="74" height="24" rx="3" fill="#FBF7FF"/>
-          <text x="37" y="17" text-anchor="middle" font-family="VT323,monospace" font-size="17" fill="#2A2378" stroke="none">BẢO LỘC</text>
+          <text x="37" y="17" text-anchor="middle" font-family="Anton,Impact,sans-serif" font-size="15" fill="#2A2378" stroke="none">BẢO LỘC</text>
         </g>
       </g>
     </svg>
-
-    <div class="hud">
-      <div><small>CƠ SỞ</small><b>02</b></div>
-      <div><small>LỚP</small><b>66</b></div>
-      <div><small>TỔ CM</small><b>07</b></div>
-    </div>
-    <div class="boot">
-      <div class="row1"><span id="bootTxt">Đang khởi động…</span><span id="bootPct">0%</span></div>
-      <div class="prog"><i></i></div>
-    </div>
   </div>
 
-  <div class="titlebox">
-    <h1 class="title">THPT<br><span class="l2">BẢO LỘC</span></h1>
-    <div class="tags"><span class="tag">Cơ sở 1</span><span class="tag">Cơ sở 2</span><span class="tag" id="greet">Xin chào</span></div>
-  </div>
-
-  <!-- =================== DESKTOP ICONS =================== -->
-  <section id="menu">
-    <h2 class="sec-h"><span class="n">01</span>Màn hình chính</h2>
-    <div class="desktop" id="desktop"></div>
+  <!-- MENU -->
+  <section>
+    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Truy cập nhanh</h2></div>
+    <div class="btns" id="menu" style="margin-top:18px"></div>
   </section>
 
-  <!-- =================== SỔ THEO DÕI LỚP =================== -->
-  <div class="win" id="hocsinh">
-    <div class="tb y"><span class="name">so_theo_doi_lop.exe</span><span class="ctl"><i>_</i><i>×</i></span></div>
-    <div class="pad">
-      <h2 class="sec-h" style="margin-bottom:14px"><span class="n">02</span>Theo dõi học sinh</h2>
-      <div class="seg" id="seg"><button data-cs="cs1" class="on">Cơ sở 1</button><button data-cs="cs2">Cơ sở 2</button></div>
-      <label class="addr"><span>C:\&gt;</span><input id="q" type="text" placeholder="Gõ tên lớp… vd 10A3" autocomplete="off"></label>
+  <!-- THEO DÕI HỌC SINH -->
+  <section id="hocsinh">
+    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Theo dõi học sinh</h2></div>
+    <div class="panel" style="margin-top:18px">
+      <div class="tabs" id="tabs"><button data-cs="cs1" class="on">Cơ sở 1</button><button data-cs="cs2">Cơ sở 2</button></div>
+      <label class="search">🔍<input id="q" type="text" placeholder="Tìm lớp… vd 10A3" autocomplete="off"></label>
       <div id="classWrap"></div>
     </div>
-  </div>
-
-  <div class="win dlg">
-    <div class="tb"><span class="name">Thông báo</span><span class="ctl"><i>×</i></span></div>
-    <div class="pad">
-      <div class="q">?</div>
-      <div style="flex:1">
-        <p>Chưa vào được sổ theo dõi lớp? GVCN &amp; học sinh đăng kí Gmail trước nha.</p>
-        <div class="btns"><a class="b main" id="dkHS" target="_blank" rel="noopener">Đăng kí</a><button class="b" data-ok>Để sau</button></div>
-      </div>
+    <div class="callout" style="margin-top:16px">
+      <div class="arrows r" aria-hidden="true"></div>
+      <a class="red" id="dkHS" target="_blank" rel="noopener">Đăng kí Gmail GVCN &amp; HS để truy cập sổ theo dõi</a>
+      <div class="arrows l" aria-hidden="true"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- =================== TỔ CHUYÊN MÔN =================== -->
-  <div class="win" id="tcm">
-    <div class="tb g"><span class="name">explorer.exe</span><span class="ctl"><i>_</i><i>□</i><i>×</i></span></div>
-    <div class="path">📁 C:\Truong\To_Chuyen_Mon\</div>
-    <div class="pad" style="padding-bottom:4px"><h2 class="sec-h"><span class="n">03</span>Tổ chuyên môn</h2></div>
-    <div class="files" id="files"></div>
-    <div class="status"><span id="fcount">8 mục</span><span>Google Sheets</span></div>
-  </div>
-
-  <div class="win dlg">
-    <div class="tb"><span class="name">Thông báo</span><span class="ctl"><i>×</i></span></div>
-    <div class="pad">
-      <div class="q">!</div>
-      <div style="flex:1">
-        <p>Muốn xem sổ tổ chuyên môn? Nhập email để được cấp quyền.</p>
-        <div class="btns"><a class="b main" id="dkTCM" target="_blank" rel="noopener">Nhập email</a><button class="b" data-ok>OK</button></div>
-      </div>
+  <!-- TỔ CHUYÊN MÔN -->
+  <section id="tcm">
+    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Theo dõi tổ chuyên môn</h2></div>
+    <div class="btns two" id="tcmList" style="margin-top:18px"></div>
+    <div class="callout" style="margin-top:16px">
+      <div class="arrows r" aria-hidden="true"></div>
+      <a class="red" id="dkTCM" target="_blank" rel="noopener">Nhập email để truy cập vào sổ theo dõi</a>
+      <div class="arrows l" aria-hidden="true"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- =================== LIÊN HỆ =================== -->
-  <div class="win" id="lienhe">
-    <div class="tb p"><span class="name">lien_he.txt — Notepad</span><span class="ctl"><i>×</i></span></div>
-    <div class="note" id="note"></div>
-  </div>
+  <!-- LIÊN HỆ -->
+  <section id="lienhe">
+    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Liên hệ</h2></div>
+    <div class="contact" id="contact" style="margin-top:18px"></div>
+  </section>
 
-  <p class="foot">© <span id="yr"></span> THPT BẢO LỘC<br>Task completed successfully ✓</p>
+  <p class="foot">© <span id="yr"></span> THPT Bảo Lộc · Cơ sở 1 &amp; Cơ sở 2</p>
 </div>
-
-<!-- taskbar -->
-<div class="startmenu" id="startmenu">
-  <div class="side">BảoLộc OS</div>
-  <a href="#top">🏠 Trang đầu</a>
-  <a href="#menu">🖥️ Màn hình chính</a>
-  <a href="#hocsinh">📒 Theo dõi học sinh</a>
-  <a href="#tcm">📁 Tổ chuyên môn</a>
-  <a href="#lienhe">📝 Liên hệ</a>
-</div>
-<nav class="taskbar"><div class="in">
-  <button class="start" id="startBtn">▶ Start</button>
-  <div class="tasks">
-    <a href="#hocsinh">Lớp</a><a href="#tcm">Tổ CM</a><a href="#lienhe">Liên hệ</a>
-  </div>
-  <span class="tclock" id="clk2">--:--</span>
-</div></nav>
 
 <div class="toast" id="toast"></div>
 
@@ -462,31 +376,29 @@ button{font:inherit;color:inherit;cursor:pointer}
    CONFIG — chỉ cần sửa ở đây
    ========================================================= */
 const CONFIG = {
-  /* icon: notebook | board | calendar | monitor | clipboard */
-  desktop: [
-    { icon:"notebook",  label:"Theo dõi HS",   href:"#hocsinh" },
-    { icon:"board",     label:"Tổ chuyên môn", href:"#tcm" },
-    { icon:"calendar",  label:"Thời khóa biểu", href:"https://tusizhere.github.io/ExportHTML/" },
-    { icon:"monitor",   label:"vnEdu",          href:"https://eacmmcvumcsgdlamdong.vnedu.vn/v5/" },
-    { icon:"clipboard", label:"Lịch công tác",  href:"" },          // dán link lịch công tác tuần vào đây
-    { icon:"phone",     label:"Liên hệ",        href:"#lienhe" }
+  menu: [
+    { label:"Theo dõi học sinh",   href:"#hocsinh", color:"--cyan",   icon:"check" },
+    { label:"Tổ chuyên môn",       href:"#tcm",     color:"--orange", icon:"people" },
+    { label:"Thời khóa biểu",      href:"https://tusizhere.github.io/ExportHTML/", color:"--lav", icon:"calendar" },
+    { label:"Truy cập vnEdu nhanh", href:"https://eacmmcvumcsgdlamdong.vnedu.vn/v5/", color:"--pink", icon:"down" },
+    { label:"Lịch công tác tuần",  href:"", color:"--lime", icon:"note" }      // dán link lịch công tác vào href
   ],
 
   formHS:  "https://forms.gle/wcMdd21S2c29RBic9",
   formTCM: "https://forms.gle/vUcyRGVwT1Cv773MA",
 
   toChuyenMon: [
-    { name:"Toán – Tin",              color:"#D9D2FF", href:"https://docs.google.com/spreadsheets/d/1QbyeP6qdUBjtN8ltVfYDkl4BgJC3bEaD_K7SX41zk0Q/edit" },
-    { name:"Lý – CNKT",               color:"#FFD84D", href:"https://docs.google.com/spreadsheets/d/1rHH2vHTGt0K5W0COdJSs1dxZu71r2A9JWc6iejRKt94/edit" },
-    { name:"Hóa – Sinh – CNNN",       color:"#F7A8D8", href:"https://docs.google.com/spreadsheets/d/17Gr8uaq_RNcagsKZwMwuOPSp9RYQCknIMsyT-ZPwgN4/edit" },
-    { name:"Văn – Địa",               color:"#6ED3A0", href:"https://docs.google.com/spreadsheets/d/1Dz6fqA0UuLwmwhQkY_XTo9uc839MkbZX_QrZ5H5vBjs/edit" },
-    { name:"Sử – KTPL – GDTC – GDQP", color:"#D9D2FF", href:"https://docs.google.com/spreadsheets/d/1BhjtziykhXdoOhzQYlYmqD4AuUSq7OK_zHt6kXdlvFk/edit" },
-    { name:"Ngoại ngữ",               color:"#F7A8D8", href:"https://docs.google.com/spreadsheets/d/1rB8z2UGvh4P8uk5V-ldc3mSASJT3Ttzof_ZZFnkrKJQ/edit" },
-    { name:"Hành chính",              color:"#6ED3A0", href:"https://docs.google.com/spreadsheets/d/1nu257aY9pxdhwimt1dpPUr3Z5xalikt8M_5kokh-UUk/edit" },
-    { name:"Tổng hợp",                color:"#FFD84D", href:"https://docs.google.com/spreadsheets/d/1nu257aY9pxdhwimt1dpPUr3Z5xalikt8M_5kokh-UUk/edit" }
+    { name:"1. Tổ Toán Tin",                 color:"--cyan",   href:"https://docs.google.com/spreadsheets/d/1QbyeP6qdUBjtN8ltVfYDkl4BgJC3bEaD_K7SX41zk0Q/edit" },
+    { name:"2. Tổ Lý CNKT",                  color:"--orange", href:"https://docs.google.com/spreadsheets/d/1rHH2vHTGt0K5W0COdJSs1dxZu71r2A9JWc6iejRKt94/edit" },
+    { name:"3. Tổ Hóa - Sinh - CNNN",        color:"--pink",   href:"https://docs.google.com/spreadsheets/d/17Gr8uaq_RNcagsKZwMwuOPSp9RYQCknIMsyT-ZPwgN4/edit" },
+    { name:"4. Tổ Văn - Địa",                color:"--lav",    href:"https://docs.google.com/spreadsheets/d/1Dz6fqA0UuLwmwhQkY_XTo9uc839MkbZX_QrZ5H5vBjs/edit" },
+    { name:"5. Tổ Sử - KTPL - GDTC - GDQP",  color:"--green",  href:"https://docs.google.com/spreadsheets/d/1BhjtziykhXdoOhzQYlYmqD4AuUSq7OK_zHt6kXdlvFk/edit" },
+    { name:"6. Tổ Ngoại ngữ",                color:"--lemon",  href:"https://docs.google.com/spreadsheets/d/1rB8z2UGvh4P8uk5V-ldc3mSASJT3Ttzof_ZZFnkrKJQ/edit" },
+    { name:"7. Tổ Hành chính",               color:"--orange", href:"https://docs.google.com/spreadsheets/d/1nu257aY9pxdhwimt1dpPUr3Z5xalikt8M_5kokh-UUk/edit" },
+    { name:"Tổng hợp",                       color:"--lime",   href:"https://docs.google.com/spreadsheets/d/1nu257aY9pxdhwimt1dpPUr3Z5xalikt8M_5kokh-UUk/edit" }
   ],
 
-  /* Link sổ từng lớp. Để "" thì phím hiện viền nét đứt (chưa có link).
+  /* Link sổ từng lớp. Để "" thì nút mờ, viền nét đứt (chưa có link).
      Ví dụ: "10A1": "https://docs.google.com/spreadsheets/d/xxxx/edit" */
   classLinks: {
     cs1: { "10A1":"" },
@@ -494,87 +406,63 @@ const CONFIG = {
   },
 
   campuses: [
-    { name:"Cơ sở 1", addr:"245 Nguyễn Công Trứ, Phường 2, Bảo Lộc", phone:"02633 717 497", email:"c23nguyendu.lamdong@moet.edu.vn" },
-    { name:"Cơ sở 2", addr:"101 Lê Hồng Phong, Phường 1, Bảo Lộc",  phone:"02633 864 300", email:"thptbaolocedu@gmail.com" }
+    { name:"Cơ sở 1", color:"--cyan", addr:"245 Nguyễn Công Trứ, Phường 2, Bảo Lộc", phone:"02633 717 497", email:"c23nguyendu.lamdong@moet.edu.vn" },
+    { name:"Cơ sở 2", color:"--pink", addr:"101 Lê Hồng Phong, Phường 1, Bảo Lộc",  phone:"02633 864 300", email:"thptbaolocedu@gmail.com" }
   ]
 };
 
-/* ================= ICON tự vẽ (cùng một nét) ================= */
-const S = 'stroke="#2A2378" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"';
-const ICONS = {
-  notebook:`<svg viewBox="0 0 48 48"><g ${S}><rect x="10" y="5" width="30" height="38" rx="3" fill="#F7A8D8"/><rect x="16" y="11" width="18" height="9" rx="1.5" fill="#FBF7FF"/><path d="M17 27h16M17 33h11" fill="none"/><path d="M7 11h6M7 19h6M7 27h6M7 35h6" fill="none"/><path d="M36 5v38" fill="none" stroke-width="2"/></g></svg>`,
-  board:`<svg viewBox="0 0 48 48"><g ${S}><rect x="4" y="7" width="40" height="28" rx="3" fill="#2F9E74"/><rect x="8" y="11" width="32" height="20" rx="1.5" fill="#6ED3A0"/><path d="M14 26l4-10 4 10M15.5 22.5h5M28 21h8M32 17v8" fill="none" stroke="#FBF7FF"/><path d="M14 35l-4 9M34 35l4 9M24 35v6" fill="none"/></g></svg>`,
-  calendar:`<svg viewBox="0 0 48 48"><g ${S}><rect x="5" y="9" width="38" height="34" rx="3" fill="#FBF7FF"/><path d="M5 12a3 3 0 0 1 3-3h32a3 3 0 0 1 3 3v8H5z" fill="#5B4BE0"/><path d="M15 5v8M33 5v8" fill="none"/><g stroke-width="2"><rect x="10" y="25" width="7" height="6" fill="#D9D2FF"/><rect x="20.5" y="25" width="7" height="6" fill="#FFD84D"/><rect x="31" y="25" width="7" height="6" fill="#D9D2FF"/><rect x="10" y="34" width="7" height="5" fill="#D9D2FF"/><rect x="20.5" y="34" width="7" height="5" fill="#D9D2FF"/></g></g></svg>`,
-  monitor:`<svg viewBox="0 0 48 48"><g ${S}><rect x="5" y="6" width="38" height="28" rx="3" fill="#D9D2FF"/><rect x="10" y="11" width="28" height="18" rx="1.5" fill="#5B4BE0"/><path d="M18 18v2M30 18v2" fill="none" stroke="#FBF7FF" stroke-width="3"/><path d="M19 23q5 4 10 0" fill="none" stroke="#FBF7FF"/><path d="M18 34l-2 6h16l-2-6" fill="#FBF7FF"/><path d="M12 43h24" fill="none"/></g></svg>`,
-  clipboard:`<svg viewBox="0 0 48 48"><g ${S}><rect x="8" y="8" width="32" height="36" rx="3" fill="#FFD84D"/><rect x="12" y="13" width="24" height="27" rx="1.5" fill="#FBF7FF"/><rect x="17" y="4" width="14" height="8" rx="2" fill="#D9D2FF"/><path d="M16 21l2.5 2.5 4-4M16 31l2.5 2.5 4-4M26 22h6M26 32h6" fill="none" stroke-width="2.2"/></g></svg>`,
-  phone:`<svg viewBox="0 0 48 48"><g ${S}><rect x="13" y="4" width="22" height="40" rx="4" fill="#6ED3A0"/><rect x="16.5" y="9" width="15" height="25" rx="1.5" fill="#FBF7FF"/><circle cx="24" cy="39" r="2" fill="#2A2378"/><path d="M20 15h8M20 20h8M20 25h5" fill="none" stroke-width="2"/></g></svg>`,
-  folder:c=>`<svg viewBox="0 0 48 48"><g ${S}><path d="M4 12a3 3 0 0 1 3-3h11l4 5h19a3 3 0 0 1 3 3v22a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="${c}"/><path d="M4 19h40" fill="none" stroke-width="2"/><rect x="10" y="25" width="14" height="4" rx="1" fill="#FBF7FF" stroke-width="2"/></g></svg>`
+/* ================= ICON ================= */
+const S='fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
+const ICONS={
+  check:`<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="#FFD744" stroke="#111" stroke-width="3"/><path d="M13 20l5 5 9-10" ${S}/></svg>`,
+  people:`<svg viewBox="0 0 40 40"><circle cx="20" cy="13" r="6" fill="#F7B1DF" stroke="#111" stroke-width="3"/><path d="M8 34c1-8 6-12 12-12s11 4 12 12z" fill="#FF8F52" stroke="#111" stroke-width="3" stroke-linejoin="round"/></svg>`,
+  calendar:`<svg viewBox="0 0 40 40"><rect x="6" y="9" width="28" height="25" rx="2" fill="#fff" stroke="#111" stroke-width="3"/><path d="M6 16h28" ${S}/><path d="M13 5v7M27 5v7" ${S}/><path d="M12 22h4M18 22h4M24 22h4M12 28h4M18 28h4" stroke="#111" stroke-width="3.5"/></svg>`,
+  down:`<svg viewBox="0 0 40 40"><path d="M14 6h12v14h7L20 34 7 20h7z" fill="#FFD744" stroke="#111" stroke-width="3" stroke-linejoin="round"/></svg>`,
+  note:`<svg viewBox="0 0 40 40"><rect x="8" y="6" width="24" height="28" rx="2" fill="#fff" stroke="#111" stroke-width="3"/><path d="M8 12h24" ${S}/><path d="M13 19h14M13 25h14M13 30h8" stroke="#111" stroke-width="2.5" stroke-linecap="round"/></svg>`
 };
 
 /* ========================================================= */
-const $ = s => document.querySelector(s);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const ext = h => /^https?:/.test(h);
-const lk = h => h ? `href="${esc(h)}"${ext(h)?' target="_blank" rel="noopener"':''}` : 'href="#" data-soon="1"';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ext=h=>/^https?:/.test(h);
+const lk=h=>h?`href="${esc(h)}"${ext(h)?' target="_blank" rel="noopener"':''}`:'href="#" data-soon="1"';
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800)}
 
-/* desktop */
-$('#desktop').innerHTML = CONFIG.desktop.map(d =>
-  `<a class="ico${d.href?'':' soon'}" ${lk(d.href)}><span class="art">${ICONS[d.icon]}</span><span>${esc(d.label)}</span></a>`).join('');
+$('#menu').innerHTML=CONFIG.menu.map(m=>
+  `<a class="btn icon${m.href?'':' soon'}" style="--c:var(${m.color})" ${lk(m.href)}><span class="ic">${ICONS[m.icon]}</span>${esc(m.label)}</a>`).join('');
+$('#tcmList').innerHTML=CONFIG.toChuyenMon.map(t=>
+  `<a class="btn" style="--c:var(${t.color})" ${lk(t.href)}>${esc(t.name)}</a>`).join('');
+$('#dkHS').href=CONFIG.formHS; $('#dkTCM').href=CONFIG.formTCM;
 
-/* forms */
-$('#dkHS').href = CONFIG.formHS; $('#dkTCM').href = CONFIG.formTCM;
+/* mũi tên trắng */
+document.querySelectorAll('.arrows').forEach((a,j)=>{a.innerHTML=Array.from({length:12},(_,i)=>`<span style="animation-delay:${(a.classList.contains('r')?i:11-i)*.08}s"></span>`).join('')});
 
 /* lớp */
 let cs='cs1';
 function renderClasses(){
-  const q=$('#q').value.trim().toUpperCase().replace(/\s/g,''), L=cs==='cs1'?'A':'B';
+  const q=$('#q').value.trim().toUpperCase().replace(/\s/g,''),L=cs==='cs1'?'A':'B';
   let h='';
   for(const k of [10,11,12]){
     const list=Array.from({length:11},(_,i)=>`${k}${L}${i+1}`).filter(c=>!q||c.includes(q));
-    if(!list.length) continue;
-    h+=`<div class="khoi k${k}"><h4>Khối ${k} <em>${list.length} lớp</em></h4><div class="keys">`+
-      list.map(c=>{const u=(CONFIG.classLinks[cs]||{})[c];
-        return `<a class="key${u?'':' nolink'}" ${lk(u)}>${c}</a>`}).join('')+`</div></div>`;
+    if(!list.length)continue;
+    h+=`<div class="khoi k${k}"><h3>KHỐI ${k} <span>${list.length} lớp</span></h3><div class="keys">`+
+      list.map(c=>{const u=(CONFIG.classLinks[cs]||{})[c];return `<a class="key${u?'':' nolink'}" ${lk(u)}>${c}</a>`}).join('')+`</div></div>`;
   }
-  $('#classWrap').innerHTML = h || `<p class="empty">Không tìm thấy “${esc(q)}” :(</p>`;
+  $('#classWrap').innerHTML=h||`<p class="empty">Không tìm thấy lớp “${esc(q)}”</p>`;
 }
-$('#seg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
-  document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('on',x===b));cs=b.dataset.cs;renderClasses()});
-$('#q').addEventListener('input',renderClasses); renderClasses();
-
-/* tổ chuyên môn */
-$('#files').innerHTML = CONFIG.toChuyenMon.map(t =>
-  `<a class="file" ${lk(t.href)}>${ICONS.folder(t.color)}<b>Tổ ${esc(t.name)}</b><span class="go">&gt;</span></a>`).join('');
-$('#fcount').textContent = CONFIG.toChuyenMon.length + ' mục';
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));cs=b.dataset.cs;renderClasses()});
+$('#q').addEventListener('input',renderClasses);renderClasses();
 
 /* liên hệ */
-$('#note').innerHTML = CONFIG.campuses.map(c =>
-  `<p class="h">» ${c.name}</p><p>📍 ${esc(c.addr)}</p><p>☎️ <a href="tel:${c.phone.replace(/\s/g,'')}">${esc(c.phone)}</a></p><p>✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></p>`).join('<p>&nbsp;</p>');
-$('#yr').textContent = new Date().getFullYear();
+$('#contact').innerHTML=CONFIG.campuses.map(c=>`<div class="cp" style="--c:var(${c.color})"><h3>${c.name}</h3><p>📍 ${esc(c.addr)}<br>☎️ <a href="tel:${c.phone.replace(/\s/g,'')}">${esc(c.phone)}</a><br>✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></p></div>`).join('');
+$('#yr').textContent=new Date().getFullYear();
 
-/* đồng hồ + lời chào */
-function tick(){const d=new Date(),t=d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
-  $('#clk1').textContent=d.toLocaleDateString('vi-VN')+' '+t; $('#clk2').textContent=t}
-tick(); setInterval(tick,15000);
-const hr=new Date().getHours();
-$('#greet').textContent = hr<11?'☀️ Chào buổi sáng':hr<14?'🍱 Buổi trưa':hr<18?'🌤️ Buổi chiều':'🌙 Buổi tối';
+const D=['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'];
+function tick(){const d=new Date();$('#clock').textContent=`${D[d.getDay()]}, ${d.toLocaleDateString('vi-VN')} · ${d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})}`}
+tick();setInterval(tick,15000);
 
-/* thanh khởi động */
-(()=>{const start=performance.now(),D=2600;
-  const step=n=>{const p=Math.min(100,Math.round((n-start)/D*100));$('#bootPct').textContent=p+'%';
-    if(p<100)requestAnimationFrame(step);else $('#bootTxt').textContent='Sẵn sàng! Chào mừng đến Bảo Lộc ✓'};
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){$('#bootPct').textContent='100%';$('#bootTxt').textContent='Sẵn sàng! ✓'}
-  else requestAnimationFrame(step)})();
-
-/* start menu */
-$('#startBtn').addEventListener('click',e=>{e.stopPropagation();$('#startmenu').classList.toggle('open');$('#startBtn').classList.toggle('on')});
-document.addEventListener('click',e=>{
-  if(!e.target.closest('#startmenu')&&!e.target.closest('#startBtn')){$('#startmenu').classList.remove('open');$('#startBtn').classList.remove('on')}
-  if(e.target.closest('#startmenu a')){$('#startmenu').classList.remove('open');$('#startBtn').classList.remove('on')}
-  if(e.target.closest('[data-soon]')){e.preventDefault();toast('Link đang cập nhật…')}
-  if(e.target.closest('[data-ok]')){toast('OK 👌')}
-});
+document.addEventListener('click',e=>{if(e.target.closest('[data-soon]')){e.preventDefault();toast('Link đang cập nhật…')}});
 </script>
 </body>
 </html>
