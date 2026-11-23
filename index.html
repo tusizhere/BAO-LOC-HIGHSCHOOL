@@ -66,7 +66,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* ---------- HEADER ---------- */
 .head{display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:6px}
-.logo{width:96px;height:96px;border-radius:50%;background:#fff;border:var(--line);object-fit:contain;box-shadow:4px 4px 0 var(--ink)}
+.logo{width:110px;height:110px;border-radius:50%;border:var(--line);object-fit:cover;box-shadow:4px 4px 0 var(--ink);animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-3deg)}}
 .school{
   background:var(--yellow);border:var(--line);border-radius:999px;padding:8px 26px 6px;box-shadow:5px 5px 0 var(--ink);
   font-family:var(--title);font-size:clamp(2.2rem,11vw,3.2rem);line-height:1.05;letter-spacing:1px;color:#D7263D;text-align:center;
