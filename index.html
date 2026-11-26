@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#5A2E86">
 <title>THPT Bảo Lộc · Cổng truy cập</title>
-<meta name="description" content="Cổng truy cập nhanh Trường THPT Bảo Lộc – sổ thi đua, theo dõi học sinh, tổ chuyên môn, thời khóa biểu.">
+<meta name="description" content="Cổng truy cập nhanh Trường THPT Bảo Lộc – theo dõi học sinh, tổ chuyên môn, thời khóa biểu, vnEdu.">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,27 +96,6 @@ button{font:inherit;color:inherit;cursor:pointer}
 .btn .ic svg{width:34px;height:34px}
 .btn.soon{opacity:.6}
 .btn.soon::after{content:"SẮP CÓ";position:absolute;top:-10px;right:10px;font-size:.7rem;font-weight:700;background:var(--red);color:#fff;border:2px solid var(--ink);padding:1px 6px;text-decoration:none}
-
-/* ---------- CHỌN VAI ---------- */
-[hidden]{display:none!important}
-.vai{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.vai button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 4px;background:var(--c);border:var(--line);border-radius:6px;box-shadow:4px 4px 0 var(--ink);font:700 1rem var(--body);text-transform:uppercase;cursor:pointer;opacity:.55;transition:.1s}
-.vai button b{font-size:1.8rem;line-height:1}
-.vai button.on{opacity:1;transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);outline:3px solid var(--yellow);outline-offset:2px}
-.vai:not(:has(.on)) button{opacity:1}
-.goiy{margin-top:12px;text-align:center;font-weight:700;color:#fff;text-shadow:1px 1px 0 var(--ink)}
-
-/* ---------- MENU THẢ XUỐNG ---------- */
-.drop>summary{list-style:none;cursor:pointer}
-.drop>summary::-webkit-details-marker{display:none}
-.drop>summary .lb{flex:1}
-.drop>summary .mui{display:inline-block;font-size:1.4rem;text-decoration:none;transition:transform .2s}
-.drop[open]>summary .mui{transform:rotate(180deg)}
-.drop[open]>summary{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
-
-/* ---------- SỔ THI ĐUA ---------- */
-.bgh{display:block;width:max-content;margin:6px 4px 0 auto;padding:0 6px;font-weight:700;font-size:1.1rem;color:var(--ink);opacity:.35;text-decoration:none}
-.bgh:hover{opacity:.8}
 
 @media(min-width:560px){ .two{grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);grid-auto-flow:column} }
 
@@ -350,33 +329,14 @@ button{font:inherit;color:inherit;cursor:pointer}
     </svg>
   </div>
 
-  <!-- BẠN LÀ AI -->
+  <!-- MENU -->
   <section>
-    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Bạn là ai?</h2></div>
-    <div class="vai" id="vai" style="margin-top:18px">
-      <button data-v="gv" style="--c:var(--orange)"><b>👩‍🏫</b>Giáo viên</button>
-      <button data-v="hs" style="--c:var(--cyan)"><b>🧑‍🎓</b>Học sinh</button>
-      <button data-v="ph" style="--c:var(--pink)"><b>👪</b>Phụ huynh</button>
-    </div>
-    <p class="goiy" id="goiy">Chọn đúng vai để chỉ hiện những mục dành cho bạn 👆</p>
-  </section>
-
-
-
-  <!-- THEO DÕI HỌC SINH -->
-  <section id="thidua" data-ai="gv hs ph">
-    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Sổ thi đua HK2</h2></div>
-    <div class="btns" id="tdList" style="margin-top:18px"></div>
-    <a class="bgh" id="bgh" data-ai="gv" target="_blank" rel="noopener" aria-label="Ban giám hiệu">!</a>
-  </section>
-
-  <!-- TIỆN ÍCH -->
-  <section id="tienich" data-ai="gv hs ph">
-    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Tiện ích</h2></div>
+    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Truy cập nhanh</h2></div>
     <div class="btns" id="menu" style="margin-top:18px"></div>
   </section>
 
-  <section id="hocsinh" data-ai="gv">
+  <!-- THEO DÕI HỌC SINH -->
+  <section id="hocsinh">
     <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Theo dõi học sinh</h2></div>
     <div class="panel" style="margin-top:18px">
       <div class="tabs" id="tabs"><button data-cs="cs1" class="on">Cơ sở 1</button><button data-cs="cs2">Cơ sở 2</button></div>
@@ -391,7 +351,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   </section>
 
   <!-- TỔ CHUYÊN MÔN -->
-  <section id="tcm" data-ai="gv">
+  <section id="tcm">
     <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Theo dõi tổ chuyên môn</h2></div>
     <div class="btns two" id="tcmList" style="margin-top:18px"></div>
     <div class="callout" style="margin-top:16px">
@@ -417,22 +377,13 @@ button{font:inherit;color:inherit;cursor:pointer}
    CONFIG — chỉ cần sửa ở đây
    ========================================================= */
 const CONFIG = {
-  /* Tiện ích: ai = vai được thấy (gv / hs / ph) */
   menu: [
-    { label:"Thời khóa biểu",     href:"https://tusizhere.github.io/ExportHTML/", color:"--lav",  icon:"calendar", ai:"gv hs ph" },
-    { label:"Lịch công tác tuần", href:"", color:"--lime", icon:"note", ai:"gv" }      // dán link lịch công tác vào href
+    { label:"Theo dõi học sinh",   href:"#hocsinh", color:"--cyan",   icon:"check" },
+    { label:"Tổ chuyên môn",       href:"#tcm",     color:"--orange", icon:"people" },
+    { label:"Thời khóa biểu",      href:"https://tusizhere.github.io/ExportHTML/", color:"--lav", icon:"calendar" },
+    { label:"Truy cập vnEdu nhanh", href:"https://eacmmcvumcsgdlamdong.vnedu.vn/v5/", color:"--pink", icon:"down" },
+    { label:"Lịch công tác tuần",  href:"", color:"--lime", icon:"note" }      // dán link lịch công tác vào href
   ],
-
-  /* Web sổ thi đua (tổ trưởng nhập – GVCN duyệt – HS tra cứu) */
-  thiDua: {
-    web: "https://script.google.com/macros/s/AKfycbx8-RLU2FxNl1q1SPh8_ozQTC3DCMX9NdOJi_cgQwMV7e-87Fj5MuWEgTQNXFGIJrcC/exec",
-    nut: [
-      { label:"GVCN duyệt & tra cứu",      vai:"gv", color:"--orange", icon:"check",  ai:"gv" },
-      { label:"Xem điểm thi đua của em",   vai:"hs", color:"--lime",   icon:"people", ai:"hs" },
-      { label:"Tổ trưởng nhập điểm tổ",    vai:"",   color:"--cyan",   icon:"note",   ai:"hs" },
-      { label:"Xem điểm thi đua của con",  vai:"hs", color:"--lime",   icon:"people", ai:"ph" }
-    ]
-  },
 
   formHS:  "https://forms.gle/wcMdd21S2c29RBic9",
   formTCM: "https://forms.gle/vUcyRGVwT1Cv773MA",
@@ -451,76 +402,8 @@ const CONFIG = {
   /* Link sổ từng lớp. Để "" thì nút mờ, viền nét đứt (chưa có link).
      Ví dụ: "10A1": "https://docs.google.com/spreadsheets/d/xxxx/edit" */
   classLinks: {
-    cs1: {
-      "10A1":"https://docs.google.com/spreadsheets/d/1Z_eoVeVpOVMhW4vi5TeaIyCtSskqpNh_c4gso0yoeA4/edit",
-      "10A2":"https://docs.google.com/spreadsheets/d/1XJ4MNZjwq18qhAM9L33euQ09ZJf416GlbLbNbMlYhzI/edit",
-      "10A3":"https://docs.google.com/spreadsheets/d/1HHv-k_MAH7UsBVAyCqporFp1NzkeGvRU8u7RqU01r-c/edit",
-      "10A4":"https://docs.google.com/spreadsheets/d/1PfWBGyPMWGcmUSD6yMyHOh1WztoQshvqA56i_iQR7S0/edit",
-      "10A5":"https://docs.google.com/spreadsheets/d/1Z6YHywWl5T8bTNDNoG74aemBLsTCjFMcEddC9HHhkKs/edit",
-      "10A6":"https://docs.google.com/spreadsheets/d/1Z54jWE6QjDGsmty5p5vkGIs6-6oX4ncJT-msiKstcus/edit",
-      "10A7":"https://docs.google.com/spreadsheets/d/15ejYaXolLhCaUVDoir_JCOFvjfSjwfJsGZFTeSWCy0c/edit",
-      "10A8":"https://docs.google.com/spreadsheets/d/1CtrxXmK1Qqunob8XB5aGh6UK5pMLMLno59GLePNUZxA/edit",
-      "10A9":"https://docs.google.com/spreadsheets/d/1kTiyU36ya8kuJyjydlgj0Wkv9zqCeUQ5QBv5KuzMdmk/edit",
-      "10A10":"https://docs.google.com/spreadsheets/d/1G6g-EzFS2ibVZdaBNBLmbubZvu9Q0z47QccZdQob4Yk/edit",
-      "10A11":"https://docs.google.com/spreadsheets/d/1rFIDwMo0feo7KoVerukK5tPRR4wQXT6AuXYhrY1kV68/edit",
-      "11A1":"https://docs.google.com/spreadsheets/d/1ccFlBw0YYPlqx7heicTelHiuNkoPDywIf1Si5L3JWuU/edit",
-      "11A2":"https://docs.google.com/spreadsheets/d/1tQq-E1_cnpO21Kq1fub6JDLr2RotFt-LpLotyuuJFKY/edit",
-      "11A3":"https://docs.google.com/spreadsheets/d/1VNsWFA9PAeAfcdL3vX4Iklrd-gzlnlUE3Nho6nVTenU/edit",
-      "11A4":"https://docs.google.com/spreadsheets/d/1CKGYwuUJ5wp8Gst_SJpQXxFKN4Y6wc0mE5echWOmLUI/edit",
-      "11A5":"https://docs.google.com/spreadsheets/d/1fZ4hS0D9wFmYlUq6js2YeELxdUzT1CyR8YyKJ7yK3N8/edit",
-      "11A6":"https://docs.google.com/spreadsheets/d/1Ib46UQjDRnjCOy6SNtlt-46MyEcRSIyVXtIrN484jss/edit",
-      "11A7":"https://docs.google.com/spreadsheets/d/1JP6R9eftM2qQk24j2Lh-4Fx5UndBxF_inDxssHOgC5s/edit",
-      "11A8":"https://docs.google.com/spreadsheets/d/10x-beKPzTnNAVwVhzAlSyU_MlrkeS45MRmHSdKbaiNQ/edit",
-      "11A9":"https://docs.google.com/spreadsheets/d/1095tzOSXMuvE-Ud4TYnk2s-6wLKBzfQjs2cEzNCVbEM/edit",
-      "11A10":"https://docs.google.com/spreadsheets/d/1Ya73d8lb_HVykpHyRFzQzhbp_fHoGb5OTO0N69bJ0Bk/edit",
-      "11A11":"https://docs.google.com/spreadsheets/d/1BoO8jYIWOavgA-j_ocOexxYvgqJIhZAfoAsm_BsPrBw/edit",
-      "12A1":"https://docs.google.com/spreadsheets/d/1fnHlqT2lKJ3WcP3e26hSsyXQO8_il0Qze3Qe8WcBsHU/edit",
-      "12A2":"https://docs.google.com/spreadsheets/d/1uTYsLuhShiLDFBBV1Weqy-stlhhnQQYPAdpEZDAzpbM/edit",
-      "12A3":"https://docs.google.com/spreadsheets/d/1-dkBFSOfZU93GvGfPAqqscXS7QYfVcVPaQlGCR3VjKM/edit",
-      "12A4":"https://docs.google.com/spreadsheets/d/1UNq0JopAur_156HFMmm9msMMEQPoKVo5BhORERI8r94/edit",
-      "12A5":"https://docs.google.com/spreadsheets/d/1Cn_rPqzA0ZqUSybOn65zIqzt9xNm51g-4HBlmgRkBb4/edit",
-      "12A6":"https://docs.google.com/spreadsheets/d/1nTXjnak7rAqAm7rc46C_GlZDEwp1CZKO_7wfjD9ANvg/edit",
-      "12A7":"https://docs.google.com/spreadsheets/d/1fReSyeo2JnRNb2lOy8hiws7AzVWyMUzDadgmueyrWrY/edit",
-      "12A8":"https://docs.google.com/spreadsheets/d/1Rr0SyxiAHT7TWeNFPJd1ayFQFtzWiFWZ-_QN7nw7osE/edit",
-      "12A9":"https://docs.google.com/spreadsheets/d/1yp6OCSM1CCY4PzWtxlWIZ8KkubDqXkP-zZ9CXSR3hZ4/edit",
-      "12A10":"https://docs.google.com/spreadsheets/d/1THct4DBUNY1HnyvrWMzyrbHyFUfKl4n_C7EIhY3DSK8/edit",
-      "12A11":"https://docs.google.com/spreadsheets/d/1PMa203FWziA3o5ukFf8piukkdzBL4fE_oS3WeX21hnE/edit"
-    },
-    cs2: {
-      "10B1":"https://docs.google.com/spreadsheets/d/1oKDejJxaq1N8YiqLqn-prrMdfFsu01hLOlAre935syc/edit",
-      "10B2":"https://docs.google.com/spreadsheets/d/1RoTdAbJXbMpxjEjtFYqTLdggZOtKehGPn-38pHek9Ug/edit",
-      "10B3":"https://docs.google.com/spreadsheets/d/1GuywxCPAck5lH3gswlXXrohSjZmMmZckXALyAMSQjYA/edit",
-      "10B4":"https://docs.google.com/spreadsheets/d/1XFmy4U8QYnyISOFEt1sbRR2Je60oXMxC7nzOaVRm9l8/edit",
-      "10B5":"https://docs.google.com/spreadsheets/d/1uHBGTW32mh5R82mB70gpsYLEwXoUoxdvMdB-wBROnM4/edit",
-      "10B6":"https://docs.google.com/spreadsheets/d/1rAOg6UN5-Vlp2xeEPJiALTCZ7-rJBoSkEZ7JaT8vcSI/edit",
-      "10B7":"https://docs.google.com/spreadsheets/d/1b9H66wRxMYjO4OYoi_D4L-WNcdi_Gd-H8zAd0NYhqL0/edit",
-      "10B8":"https://docs.google.com/spreadsheets/d/14cxyh_Y6DK0iUin7Sm_gx_wgZtvFuOqgjdfWKSMFAO0/edit",
-      "10B9":"https://docs.google.com/spreadsheets/d/1fjCh2MX8HAayn3PK1droSqd_pPofO9b8UYQ6pOIIne4/edit",
-      "10B10":"https://docs.google.com/spreadsheets/d/12uHT6hSZeDtJ1dJZFdH55ilWZu9FJhPABgmeMMIz_xw/edit",
-      "10B11":"https://docs.google.com/spreadsheets/d/1y-UxGzNv2da1dQSB9G3_jJkA1AZq5LBZHrbftLgP_n8/edit",
-      "11B1":"https://docs.google.com/spreadsheets/d/1P-rlS3bTOBG2rPXS7hBn5W9pW_oqNFBNW6mqTfl49xI/edit",
-      "11B2":"https://docs.google.com/spreadsheets/d/1K2QHQskxMdyoYB4hflhApme_ASdowf1iGD03Ww0mJNY/edit",
-      "11B3":"https://docs.google.com/spreadsheets/d/1XH_dbRZ9NM5kIzDZeuEE569cx3ZjHZVXEBdssF9DkFU/edit",
-      "11B4":"https://docs.google.com/spreadsheets/d/1DzNA639DdYfn_JHIuVKcpepXMOzgkTQCReWdlifxlms/edit",
-      "11B5":"https://docs.google.com/spreadsheets/d/1K9NNFyRLiyNzcQTHpyvsfnjzqWHwN9YedPfI6_hvJRE/edit",
-      "11B6":"https://docs.google.com/spreadsheets/d/1sXRroUHujyeyuL96URwbQwTnVw8Mdy_JbZ57AYljINs/edit",
-      "11B7":"https://docs.google.com/spreadsheets/d/1WoeTz27aho-mRBgab9B_dABCBhS43vVZ7HOjCa3mPmQ/edit",
-      "11B8":"https://docs.google.com/spreadsheets/d/1Uum6_q60HCY9vJ_XaxiKi8I9d_xBAP39x-77hKMHdzM/edit",
-      "11B9":"https://docs.google.com/spreadsheets/d/1M0K3SINhcsT-suDoQNe095nKe1tAAEvv6WY6uvxlXPk/edit",
-      "11B10":"https://docs.google.com/spreadsheets/d/1avavp0ZJHmKlkH34H4YTEcEJZyrjM1XecJOWZeCMXxU/edit",
-      "11B11":"https://docs.google.com/spreadsheets/d/1Bib0ekGvun2jI5_JNyYYpVLyefh7DgWhP0790kL0GMg/edit",
-      "12B1":"https://docs.google.com/spreadsheets/d/1GmrJNQF7eEe6tBJehqwpZeMtMbwc5P0wmiikMVI2W2U/edit",
-      "12B2":"https://docs.google.com/spreadsheets/d/1itggtXWR-2OECcqRUMoeOG4uomhvhG-2JLFl6ceEgpI/edit",
-      "12B3":"https://docs.google.com/spreadsheets/d/1OwFZOVM70dHI4FqnyLctD219UdmwV-N9muCPw8W_Etg/edit",
-      "12B4":"https://docs.google.com/spreadsheets/d/1jLN9n-v1_rTr6WSXHJBkeaYx_LmmQp2igctTbXWCld8/edit",
-      "12B5":"https://docs.google.com/spreadsheets/d/10aDLL1CwOEl3nPwvvCy7pQzUacOtotH-BVn10W7wOfQ/edit",
-      "12B6":"https://docs.google.com/spreadsheets/d/1lQVWlBrp4jHZPhoKTNIdacx5Qr8gbJGgeLDI6YKJVb0/edit",
-      "12B7":"https://docs.google.com/spreadsheets/d/1OtH60CxIUpcqw6af3RD4tIYTRjEuHrcLQ0w79tb1r9w/edit",
-      "12B8":"https://docs.google.com/spreadsheets/d/1wPE37sWFgrJOU4-dvLS3fTBduyrJ2yxrJfEkr4Q1PZ8/edit",
-      "12B9":"https://docs.google.com/spreadsheets/d/1BAFVPoJOyfz2OzFngisgcnv38OCgjyq2Zs9vgUmxbUI/edit",
-      "12B10":"https://docs.google.com/spreadsheets/d/1HEoDMuO6NXxqsbHiCPsD93tbYKK-fq3RyQ86w9rIits/edit",
-      "12B11":"https://docs.google.com/spreadsheets/d/1gKHlhI9fJeVc2fzd4EiMJXsV8-thzvA2psjHglGdJ5g/edit"
-    }
+    cs1: { "10A1":"" },
+    cs2: { "10B1":"" }
   },
 
   campuses: [
@@ -547,12 +430,9 @@ const lk=h=>h?`href="${esc(h)}"${ext(h)?' target="_blank" rel="noopener"':''}`:'
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800)}
 
 $('#menu').innerHTML=CONFIG.menu.map(m=>
-  `<a class="btn icon${m.href?'':' soon'}" data-ai="${m.ai}" style="--c:var(${m.color})" ${lk(m.href)}><span class="ic">${ICONS[m.icon]}</span>${esc(m.label)}</a>`).join('');
+  `<a class="btn icon${m.href?'':' soon'}" style="--c:var(${m.color})" ${lk(m.href)}><span class="ic">${ICONS[m.icon]}</span>${esc(m.label)}</a>`).join('');
 $('#tcmList').innerHTML=CONFIG.toChuyenMon.map(t=>
   `<a class="btn" style="--c:var(${t.color})" ${lk(t.href)}>${esc(t.name)}</a>`).join('');
-$('#tdList').innerHTML=CONFIG.thiDua.nut.map(m=>{const h=CONFIG.thiDua.web+(m.vai?'?vai='+m.vai:'');
-  return `<a class="btn icon" data-ai="${m.ai}" style="--c:var(${m.color})" ${lk(h)}><span class="ic">${ICONS[m.icon]}</span>${esc(m.label)}</a>`}).join('');
-$('#bgh').href=CONFIG.thiDua.web+'?vai=bgh';
 $('#dkHS').href=CONFIG.formHS; $('#dkTCM').href=CONFIG.formTCM;
 
 /* mũi tên trắng */
@@ -577,16 +457,6 @@ $('#q').addEventListener('input',renderClasses);renderClasses();
 
 /* liên hệ */
 $('#contact').innerHTML=CONFIG.campuses.map(c=>`<div class="cp" style="--c:var(${c.color})"><h3>${c.name}</h3><p>📍 ${esc(c.addr)}<br>☎️ <a href="tel:${c.phone.replace(/\s/g,'')}">${esc(c.phone)}</a><br>✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></p></div>`).join('');
-/* chọn vai: chỉ hiện mục của vai đó, nhớ lựa chọn trên máy */
-function chonVai(v){
-  document.querySelectorAll('#vai button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
-  document.querySelectorAll('[data-ai]').forEach(e=>e.hidden=!v||!e.dataset.ai.split(' ').includes(v));
-  $('#goiy').hidden=!!v;
-  try{v?localStorage.setItem('vai',v):localStorage.removeItem('vai')}catch(e){}
-}
-$('#vai').addEventListener('click',e=>{const b=e.target.closest('button');if(b)chonVai(b.dataset.v)});
-let vaiDaChon='';try{vaiDaChon=localStorage.getItem('vai')||''}catch(e){}
-chonVai(vaiDaChon);
 $('#yr').textContent=new Date().getFullYear();
 
 const D=['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'];
