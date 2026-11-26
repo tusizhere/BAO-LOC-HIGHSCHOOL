@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#5A2E86">
 <title>THPT Bảo Lộc · Cổng truy cập</title>
-<meta name="description" content="Cổng truy cập nhanh Trường THPT Bảo Lộc – theo dõi học sinh, tổ chuyên môn, thời khóa biểu, vnEdu.">
+<meta name="description" content="Cổng truy cập nhanh Trường THPT Bảo Lộc – sổ thi đua, theo dõi học sinh, tổ chuyên môn, thời khóa biểu.">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,6 +96,14 @@ button{font:inherit;color:inherit;cursor:pointer}
 .btn .ic svg{width:34px;height:34px}
 .btn.soon{opacity:.6}
 .btn.soon::after{content:"SẮP CÓ";position:absolute;top:-10px;right:10px;font-size:.7rem;font-weight:700;background:var(--red);color:#fff;border:2px solid var(--ink);padding:1px 6px;text-decoration:none}
+
+/* ---------- MENU THẢ XUỐNG ---------- */
+.drop>summary{list-style:none;cursor:pointer}
+.drop>summary::-webkit-details-marker{display:none}
+.drop>summary .lb{flex:1}
+.drop>summary .mui{display:inline-block;font-size:1.4rem;text-decoration:none;transition:transform .2s}
+.drop[open]>summary .mui{transform:rotate(180deg)}
+.drop[open]>summary{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
 
 /* ---------- SỔ THI ĐUA ---------- */
 .bgh{display:block;width:max-content;margin:6px 4px 0 auto;padding:0 6px;font-weight:700;font-size:1.1rem;color:var(--ink);opacity:.35;text-decoration:none}
@@ -336,7 +344,10 @@ button{font:inherit;color:inherit;cursor:pointer}
   <!-- MENU -->
   <section>
     <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Truy cập nhanh</h2></div>
-    <div class="btns" id="menu" style="margin-top:18px"></div>
+    <details class="drop" style="margin-top:18px">
+      <summary class="btn icon" style="--c:var(--yellow)"><span class="ic"><svg viewBox="0 0 40 40"><path d="M9 12h22M9 20h22M9 28h22" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round"/></svg></span><span class="lb">Chọn mục cần vào</span><span class="mui">▾</span></summary>
+      <div class="btns" id="menu" style="margin-top:14px"></div>
+    </details>
   </section>
 
   <!-- THEO DÕI HỌC SINH -->
@@ -392,7 +403,6 @@ const CONFIG = {
     { label:"Theo dõi học sinh",   href:"#hocsinh", color:"--cyan",   icon:"check" },
     { label:"Tổ chuyên môn",       href:"#tcm",     color:"--orange", icon:"people" },
     { label:"Thời khóa biểu",      href:"https://tusizhere.github.io/ExportHTML/", color:"--lav", icon:"calendar" },
-    { label:"Truy cập vnEdu nhanh", href:"https://eacmmcvumcsgdlamdong.vnedu.vn/v5/", color:"--pink", icon:"down" },
     { label:"Lịch công tác tuần",  href:"", color:"--lime", icon:"note" }      // dán link lịch công tác vào href
   ],
 
@@ -524,6 +534,7 @@ $('#tcmList').innerHTML=CONFIG.toChuyenMon.map(t=>
   `<a class="btn" style="--c:var(${t.color})" ${lk(t.href)}>${esc(t.name)}</a>`).join('');
 $('#tdList').innerHTML=CONFIG.thiDua.nut.map(m=>{const h=CONFIG.thiDua.web+(m.vai?'?vai='+m.vai:'');
   return `<a class="btn icon" style="--c:var(${m.color})" ${lk(h)}><span class="ic">${ICONS[m.icon]}</span>${esc(m.label)}</a>`}).join('');
+document.querySelectorAll('#menu a[href^="#"]').forEach(a=>a.addEventListener('click',()=>a.closest('details').open=false));
 $('#bgh').href=CONFIG.thiDua.web+'?vai=bgh';
 $('#dkHS').href=CONFIG.formHS; $('#dkTCM').href=CONFIG.formTCM;
 
