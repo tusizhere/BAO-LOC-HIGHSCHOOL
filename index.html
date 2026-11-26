@@ -115,8 +115,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .drop[open]>summary{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
 
 /* ---------- SỔ THI ĐUA ---------- */
-.bgh{display:block;width:max-content;margin:6px 4px 0 auto;padding:0 6px;font-weight:700;font-size:1.1rem;color:var(--ink);opacity:.35;text-decoration:none}
-.bgh:hover{opacity:.8}
+.bgh{margin-left:6px;padding:0 4px;font-weight:700;color:inherit;opacity:.45;text-decoration:none}
+.bgh:hover{opacity:1}
 
 @media(min-width:560px){ .two{grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);grid-auto-flow:column} }
 
@@ -367,7 +367,6 @@ button{font:inherit;color:inherit;cursor:pointer}
   <section id="thidua" data-ai="gv hs ph">
     <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Sổ thi đua HK2</h2></div>
     <div class="btns" id="tdList" style="margin-top:18px"></div>
-    <a class="bgh" id="bgh" data-ai="gv" target="_blank" rel="noopener" aria-label="Ban giám hiệu">!</a>
   </section>
 
   <!-- TIỆN ÍCH -->
@@ -407,7 +406,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     <div class="contact" id="contact" style="margin-top:18px"></div>
   </section>
 
-  <p class="foot">© <span id="yr"></span> THPT Bảo Lộc · Cơ sở 1 &amp; Cơ sở 2</p>
+  <p class="foot">© <span id="yr"></span> THPT Bảo Lộc · Cơ sở 1 &amp; Cơ sở 2<a class="bgh" id="bgh" target="_blank" rel="noopener" aria-label="Ban giám hiệu" title="">!</a></p>
 </div>
 
 <div class="toast" id="toast"></div>
