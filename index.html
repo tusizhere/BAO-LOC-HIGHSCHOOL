@@ -99,12 +99,17 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* ---------- CHỌN VAI ---------- */
 [hidden]{display:none!important}
+.pick{background:#FFF8E1;border:var(--line);border-radius:8px;padding:14px 14px 16px;box-shadow:5px 5px 0 var(--ink)}
+.pick h2{font-family:var(--title);font-weight:400;font-size:1.5rem;letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.pick h2 span{font-family:var(--body);font-size:1rem;width:30px;height:30px;display:grid;place-items:center;background:var(--orange);border:2.5px solid var(--ink);border-radius:50%}
 .vai{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.vai button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 4px;background:var(--c);border:var(--line);border-radius:6px;box-shadow:4px 4px 0 var(--ink);font:700 1rem var(--body);text-transform:uppercase;cursor:pointer;opacity:.55;transition:.1s}
-.vai button b{font-size:1.8rem;line-height:1}
-.vai button.on{opacity:1;transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);outline:3px solid var(--yellow);outline-offset:2px}
-.vai:not(:has(.on)) button{opacity:1}
-.goiy{margin-top:12px;text-align:center;font-weight:700;color:#fff;text-shadow:1px 1px 0 var(--ink)}
+.vai button{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 4px 12px;background:#fff;border:var(--line);border-radius:6px;box-shadow:4px 4px 0 var(--ink);font:700 .95rem var(--body);text-transform:uppercase;cursor:pointer;transition:.1s}
+.vai button b{font-size:2.2rem;line-height:1}
+.vai button:hover{background:#FFF1E8}
+.vai button.on{background:var(--orange);transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.vai button.on::after{content:"✓";position:absolute;top:-10px;right:-8px;width:24px;height:24px;display:grid;place-items:center;background:var(--ink);color:#fff;border-radius:50%;font-size:.85rem}
+.vai:has(.on) button:not(.on){color:#555}
+.goiy{margin-top:14px;text-align:center;font-weight:600;font-size:.95rem;color:#444}
 
 /* ---------- MENU THẢ XUỐNG ---------- */
 .drop>summary{list-style:none;cursor:pointer}
@@ -351,14 +356,14 @@ button{font:inherit;color:inherit;cursor:pointer}
   </div>
 
   <!-- BẠN LÀ AI -->
-  <section>
-    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Bạn là ai?</h2></div>
-    <div class="vai" id="vai" style="margin-top:18px">
-      <button data-v="gv" style="--c:var(--orange)"><b>👩‍🏫</b>Giáo viên</button>
-      <button data-v="hs" style="--c:var(--cyan)"><b>🧑‍🎓</b>Học sinh</button>
-      <button data-v="ph" style="--c:var(--pink)"><b>👪</b>Phụ huynh</button>
+  <section class="pick">
+    <h2><span>👤</span>Bạn là ai?</h2>
+    <div class="vai" id="vai">
+      <button data-v="gv"><b>👩‍🏫</b>Giáo viên</button>
+      <button data-v="hs"><b>🧑‍🎓</b>Học sinh</button>
+      <button data-v="ph"><b>👪</b>Phụ huynh</button>
     </div>
-    <p class="goiy" id="goiy">Chọn đúng vai để chỉ hiện những mục dành cho bạn 👆</p>
+    <p class="goiy" id="goiy">Chọn vai để chỉ hiện mục của bạn 👆</p>
   </section>
 
 
