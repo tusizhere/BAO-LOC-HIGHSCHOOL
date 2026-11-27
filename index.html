@@ -40,8 +40,8 @@ body{
   /* nền caro tím */
   background-color:var(--p3);
   background-image:
-    linear-gradient(90deg,rgba(78,42,120,.55) 50%,transparent 50%),
-    linear-gradient(rgba(78,42,120,.55) 50%,transparent 50%);
+    linear-gradient(90deg,rgba(78,42,120,.28) 50%,transparent 50%),
+    linear-gradient(rgba(78,42,120,.28) 50%,transparent 50%);
   background-size:120px 120px;
   background-attachment:fixed;
 }
@@ -53,7 +53,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .banner{position:relative;display:flex;align-items:center;margin-left:14px}
 .banner .chk{
   position:absolute;left:-14px;top:50%;transform:translateY(-50%) rotate(-4deg);z-index:2;
-  width:66px;height:66px;background:var(--pink);border:var(--line);display:grid;place-items:center;
+  width:66px;height:66px;background:#fff;border:var(--line);display:grid;place-items:center;font-size:2rem;line-height:1;
 }
 .banner .chk svg{width:48px;height:48px}
 .banner h2{
@@ -84,17 +84,20 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* ---------- NÚT MÀU ---------- */
 .btns{display:grid;gap:14px}
 .btn{
-  position:relative;display:flex;align-items:center;justify-content:center;text-align:center;min-height:68px;padding:12px 16px;
-  background:var(--c);border:var(--line);border-radius:6px;box-shadow:4px 4px 0 var(--ink);
-  font-weight:500;font-size:1.25rem;line-height:1.25;text-transform:uppercase;
-  text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;
-  transition:transform .1s,box-shadow .1s;
+  position:relative;display:flex;align-items:center;gap:14px;text-align:left;min-height:64px;padding:10px 44px 10px 12px;
+  background:#fff;border:var(--line);border-radius:6px;box-shadow:4px 4px 0 var(--ink);
+  font-weight:600;font-size:1.1rem;line-height:1.25;text-transform:uppercase;
+  transition:transform .1s,box-shadow .1s,background .1s;
 }
-.btn:hover,.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
-.btn.icon{justify-content:flex-start;gap:14px;text-align:left;padding-left:12px}
-.btn .ic{width:48px;height:48px;flex-shrink:0;background:#fff;border:var(--line);border-radius:6px;display:grid;place-items:center;text-decoration:none}
-.btn .ic svg{width:34px;height:34px}
+.btn::before{content:"→";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-weight:700;font-size:1.3rem}
+.btn:hover,.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);background:#FFF1E8}
+.btn .ic{width:46px;height:46px;flex-shrink:0;background:#FFE3D1;border:var(--line);border-radius:6px;display:grid;place-items:center}
+.btn .ic svg{width:32px;height:32px}
+.btn .num{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:1rem;font-weight:700}
+.btn.main{background:var(--orange)}
+.btn.main:hover{background:#FF7A36}
 .btn.soon{opacity:.6}
+.btn.soon::before{content:none}
 .btn.soon::after{content:"SẮP CÓ";position:absolute;top:-10px;right:10px;font-size:.7rem;font-weight:700;background:var(--red);color:#fff;border:2px solid var(--ink);padding:1px 6px;text-decoration:none}
 
 /* ---------- CHỌN VAI ---------- */
@@ -140,7 +143,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .red:hover,.red:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
 
 /* ---------- LỚP HỌC ---------- */
-.panel{background:rgba(255,255,255,.92);border:var(--line);border-radius:8px;padding:14px;box-shadow:5px 5px 0 var(--ink)}
+.panel{background:#FFF8E1;border:var(--line);border-radius:8px;padding:14px;box-shadow:5px 5px 0 var(--ink)}
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 .tabs button{padding:12px;border:var(--line);border-radius:6px;background:#fff;font-weight:700;font-size:1.1rem;text-transform:uppercase}
 .tabs button.on{background:var(--p1);color:var(--yellow);box-shadow:inset 0 0 0 2px var(--yellow)}
@@ -151,8 +154,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .khoi h3{font-family:var(--title);font-weight:400;font-size:1.5rem;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .khoi h3 span{font-family:var(--body);font-size:.8rem;font-weight:600;background:var(--c);border:2px solid var(--ink);padding:1px 8px;border-radius:4px}
 .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.key{padding:12px 0;text-align:center;font-weight:700;font-size:1.1rem;background:var(--c);border:2.5px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 var(--ink);transition:.1s}
-.key:hover,.key:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.key{padding:12px 0;text-align:center;font-weight:700;font-size:1.1rem;background:#fff;border:2.5px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 var(--ink);transition:.1s}
+.key:hover,.key:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);background:var(--orange)}
 .key.nolink{opacity:.45;box-shadow:none;border-style:dashed}
 .k10{--c:var(--cyan)} .k11{--c:var(--pink)} .k12{--c:var(--lime)}
 .empty{text-align:center;font-weight:600;padding:10px}
@@ -370,18 +373,18 @@ button{font:inherit;color:inherit;cursor:pointer}
 
   <!-- THEO DÕI HỌC SINH -->
   <section id="thidua" data-ai="gv hs ph">
-    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Sổ thi đua HK2</h2></div>
+    <div class="banner"><span class="chk" aria-hidden="true">🏆</span><h2>Sổ thi đua HK2</h2></div>
     <div class="btns" id="tdList" style="margin-top:18px"></div>
   </section>
 
   <!-- TIỆN ÍCH -->
   <section id="tienich" data-ai="gv hs ph">
-    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Tiện ích</h2></div>
+    <div class="banner"><span class="chk" aria-hidden="true">🧰</span><h2>Tiện ích</h2></div>
     <div class="btns" id="menu" style="margin-top:18px"></div>
   </section>
 
   <section id="hocsinh" data-ai="gv">
-    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Theo dõi học sinh</h2></div>
+    <div class="banner"><span class="chk" aria-hidden="true">🎒</span><h2>Theo dõi học sinh</h2></div>
     <div class="panel" style="margin-top:18px">
       <div class="tabs" id="tabs"><button data-cs="cs1" class="on">Cơ sở 1</button><button data-cs="cs2">Cơ sở 2</button></div>
       <label class="search">🔍<input id="q" type="text" placeholder="Tìm lớp… vd 10A3" autocomplete="off"></label>
@@ -396,7 +399,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
   <!-- TỔ CHUYÊN MÔN -->
   <section id="tcm" data-ai="gv">
-    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Theo dõi tổ chuyên môn</h2></div>
+    <div class="banner"><span class="chk" aria-hidden="true">📚</span><h2>Theo dõi tổ chuyên môn</h2></div>
     <div class="btns two" id="tcmList" style="margin-top:18px"></div>
     <div class="callout" style="margin-top:16px">
       <div class="arrows r" aria-hidden="true"></div>
@@ -407,7 +410,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
   <!-- LIÊN HỆ -->
   <section id="lienhe">
-    <div class="banner"><span class="chk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="#FFF6D6" stroke="#FFD744" stroke-width="5"/><circle cx="24" cy="24" r="19.5" fill="none" stroke="#111" stroke-width="1.5"/><path d="M16 24l6 6 11-12" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h2>Liên hệ</h2></div>
+    <div class="banner"><span class="chk" aria-hidden="true">📞</span><h2>Liên hệ</h2></div>
     <div class="contact" id="contact" style="margin-top:18px"></div>
   </section>
 
@@ -551,11 +554,11 @@ const lk=h=>h?`href="${esc(h)}"${ext(h)?' target="_blank" rel="noopener"':''}`:'
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800)}
 
 $('#menu').innerHTML=CONFIG.menu.map(m=>
-  `<a class="btn icon${m.href?'':' soon'}" data-ai="${m.ai}" style="--c:var(${m.color})" ${lk(m.href)}><span class="ic">${ICONS[m.icon]}</span>${esc(m.label)}</a>`).join('');
+  `<a class="btn${m.href?'':' soon'}" data-ai="${m.ai}" ${lk(m.href)}><span class="ic">${ICONS[m.icon]}</span>${esc(m.label)}</a>`).join('');
 $('#tcmList').innerHTML=CONFIG.toChuyenMon.map(t=>
-  `<a class="btn" style="--c:var(${t.color})" ${lk(t.href)}>${esc(t.name)}</a>`).join('');
+  {const m=t.name.match(/^(\d+)\.\s*(.*)$/);return `<a class="btn${m?'':' main'}" ${lk(t.href)}><span class="num">${m?m[1]:'Σ'}</span>${esc(m?m[2]:t.name)}</a>`}).join('');
 $('#tdList').innerHTML=CONFIG.thiDua.nut.map(m=>{const h=CONFIG.thiDua.web+(m.vai?'?vai='+m.vai:'');
-  return `<a class="btn icon" data-ai="${m.ai}" style="--c:var(${m.color})" ${lk(h)}><span class="ic">${ICONS[m.icon]}</span>${esc(m.label)}</a>`}).join('');
+  return `<a class="btn" data-ai="${m.ai}" ${lk(h)}><span class="ic">${ICONS[m.icon]}</span>${esc(m.label)}</a>`}).join('');
 $('#bgh').href=CONFIG.thiDua.web+'?vai=bgh';
 $('#dkHS').href=CONFIG.formHS; $('#dkTCM').href=CONFIG.formTCM;
 
@@ -580,7 +583,7 @@ $('#tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b
 $('#q').addEventListener('input',renderClasses);renderClasses();
 
 /* liên hệ */
-$('#contact').innerHTML=CONFIG.campuses.map(c=>`<div class="cp" style="--c:var(${c.color})"><h3>${c.name}</h3><p>📍 ${esc(c.addr)}<br>☎️ <a href="tel:${c.phone.replace(/\s/g,'')}">${esc(c.phone)}</a><br>✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></p></div>`).join('');
+$('#contact').innerHTML=CONFIG.campuses.map(c=>`<div class="cp" style="--c:var(--yellow)"><h3>${c.name}</h3><p>📍 ${esc(c.addr)}<br>☎️ <a href="tel:${c.phone.replace(/\s/g,'')}">${esc(c.phone)}</a><br>✉️ <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></p></div>`).join('');
 /* chọn vai: chỉ hiện mục của vai đó, nhớ lựa chọn trên máy */
 function chonVai(v){
   document.querySelectorAll('#vai button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
